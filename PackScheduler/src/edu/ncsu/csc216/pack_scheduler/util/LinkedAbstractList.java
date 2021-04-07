@@ -168,6 +168,18 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	}
 	
 	/**
+	 * Sets the capacity of the LinkedAbstractList
+	 * @param capacity the new capacity to set
+	 * @throws IllegalArgumentException if capacity is less than 0 or the current capacity
+	 */
+	public void setCapacity(int capacity) {
+		if (capacity < 0 || capacity < this.capacity) {
+			throw new IllegalArgumentException();
+		}
+		this.capacity = capacity;
+	}
+	
+	/**
 	 * Inner class of LinkedAbstractList that represents each element in list
 	 * Parameters for data of element and next ListNode in list
 	 * @author Kelsey Hanser, Daniel Nolting, Nick Bleuzen
