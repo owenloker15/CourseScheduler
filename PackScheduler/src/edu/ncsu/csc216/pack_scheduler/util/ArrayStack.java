@@ -26,7 +26,7 @@ public class ArrayStack<E> implements Stack<E> {
 		if(isEmpty()) {
 			throw new EmptyStackException();
 		}
-		return list.remove(list.size()-1);
+		return list.remove(list.size() - 1);
 	}
 
 	@Override
