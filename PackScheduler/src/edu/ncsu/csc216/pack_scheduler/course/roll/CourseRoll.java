@@ -1,6 +1,7 @@
 package edu.ncsu.csc216.pack_scheduler.course.roll;
 
 import edu.ncsu.csc216.pack_scheduler.user.Student;
+import edu.ncsu.csc216.pack_scheduler.util.ArrayStack;
 import edu.ncsu.csc216.pack_scheduler.util.LinkedAbstractList;
 
 /**
@@ -21,6 +22,8 @@ public class CourseRoll {
 	private LinkedAbstractList<Student> roll; 
 	/** Maximum number of students allowed to enroll*/
 	private int enrollmentCap;
+	
+	private ArrayStack<Student> waitlist;
 	
 	/**
 	 * Constructor for CourseRoll
