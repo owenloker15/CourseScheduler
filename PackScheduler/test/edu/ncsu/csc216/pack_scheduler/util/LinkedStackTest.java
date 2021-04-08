@@ -84,6 +84,7 @@ public class LinkedStackTest {
 		LinkedStack<String> stack = new LinkedStack<String>(15);
 		try {
 			stack.setCapacity(-1);
+			fail();
 		} catch (IllegalArgumentException e) {
 			assertEquals(0, stack.size());
 		}

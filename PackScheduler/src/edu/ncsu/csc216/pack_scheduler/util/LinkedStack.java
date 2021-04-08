@@ -62,7 +62,7 @@ public class LinkedStack<E> implements Stack<E> {
 	}
 
 	/**
-	 * Returns true if stack has no elements, else returns false
+	 * Returns true if stack has no elements, else returns false.
 	 * 
 	 * @return true if stack has no elements
 	 */
@@ -72,7 +72,7 @@ public class LinkedStack<E> implements Stack<E> {
 	}
 
 	/**
-	 * Returns number of elements in stack
+	 * Returns number of elements in stack.
 	 * 
 	 * @return int number of elements in stack
 	 */
@@ -82,7 +82,7 @@ public class LinkedStack<E> implements Stack<E> {
 	}
 
 	/**
-	 * Sets the capacity of the stack
+	 * Sets the capacity of the stack.
 	 * 
 	 * @param capacity the capacity of the stack
 	 */
