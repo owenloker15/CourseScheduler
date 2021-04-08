@@ -27,7 +27,7 @@ public class LinkedStackTest {
 	 */
 	@Test
 	public void testLinkedStack() {
-		ArrayStack<String> stack = new ArrayStack<String>(15);
+		LinkedStack<String> stack = new LinkedStack<String>(15);
 		assertEquals(0, stack.size());
 	}
 
@@ -36,7 +36,7 @@ public class LinkedStackTest {
 	 */
 	@Test
 	public void testPush() {
-		ArrayStack<String> stack = new ArrayStack<String>(15);
+		LinkedStack<String> stack = new LinkedStack<String>(15);
 		stack.push("apple");
 		assertEquals(1, stack.size());
 		assertFalse(stack.isEmpty());
@@ -53,7 +53,7 @@ public class LinkedStackTest {
 	 */
 	@Test
 	public void testPop() {
-		ArrayStack<String> stack = new ArrayStack<String>(15);
+		LinkedStack<String> stack = new LinkedStack<String>(15);
 		stack.push("apple");
 		stack.push("banana");
 		stack.push("orange");
@@ -81,7 +81,7 @@ public class LinkedStackTest {
 	 */
 	@Test
 	public void testSetCapacity() {
-		ArrayStack<String> stack = new ArrayStack<String>(15);
+		LinkedStack<String> stack = new LinkedStack<String>(15);
 		try {
 			stack.setCapacity(-1);
 		} catch (IllegalArgumentException e) {
