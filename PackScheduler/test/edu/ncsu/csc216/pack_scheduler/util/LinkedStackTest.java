@@ -82,6 +82,7 @@ public class LinkedStackTest {
 	@Test
 	public void testSetCapacity() {
 		LinkedStack<String> stack = new LinkedStack<String>(15);
+		//Capacity cannot be negative
 		try {
 			stack.setCapacity(-1);
 			fail();

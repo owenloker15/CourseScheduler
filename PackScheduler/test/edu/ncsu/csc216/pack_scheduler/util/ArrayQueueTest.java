@@ -82,8 +82,10 @@ public class ArrayQueueTest {
 	@Test
 	public void testSetCapacity() {
 		ArrayQueue<String> queue = new ArrayQueue<String>(15);
+		//Capacity cannot be negative
 		try {
 			queue.setCapacity(-1);
+			fail();
 		} catch (IllegalArgumentException e) {
 			assertEquals(0, queue.size());
 		}
