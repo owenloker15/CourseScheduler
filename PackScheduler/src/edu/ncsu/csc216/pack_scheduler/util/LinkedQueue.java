@@ -3,10 +3,9 @@ package edu.ncsu.csc216.pack_scheduler.util;
 import java.util.NoSuchElementException;
 
 /**
- * The LinkedQueue class defines the methods needed for a Queue. The methods can
- * add, remove, and set the Capacity of the queue. There are additional methods
- * to check the size and whether the stack is empty or not. The queue is
- * implemented as a ArrayList.
+ * The LinkedQueue class defines the methods needed for a Queue. The methods can add, remove, and
+ * set the Capacity of the queue. There are additional methods to check the size
+ * and whether the stack is empty or not. The queue is implemented as a LinkedList;.
  * 
  * @author Daniel Nolting
  * @author Calli Hooks
@@ -14,10 +13,10 @@ import java.util.NoSuchElementException;
  *
  * @param <E> generic type E
  */
-public class ArrayQueue<E> implements Queue<E> {
-
+public class LinkedQueue<E> implements Queue<E> {
+	
 	/** Queue is implemented as a ArrayList */
-	private ArrayList<E> list;
+	private LinkedAbstractList<E> list;
 
 	/** Capacity of the queue */
 	private int capacity;
@@ -27,8 +26,8 @@ public class ArrayQueue<E> implements Queue<E> {
 	 * 
 	 * @param capacity the capacity of the queue
 	 */
-	public ArrayQueue(int capacity) {
-		list = new ArrayList<E>();
+	public LinkedQueue(int capacity) {
+		list = new LinkedAbstractList<E>(capacity);
 		setCapacity(capacity);
 	}
 
@@ -48,7 +47,7 @@ public class ArrayQueue<E> implements Queue<E> {
 			list.add(0, element);
 		} else {
 			list.add(list.size() - 1, element);
-		}
+		} 
 	}
 
 	/**
