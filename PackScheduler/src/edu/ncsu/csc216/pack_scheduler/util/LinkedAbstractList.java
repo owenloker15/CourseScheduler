@@ -17,6 +17,8 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	private int capacity;
 	/** First node in the list*/
 	private ListNode front;
+	/**Last node in the list*/
+	private ListNode back;
 	
 	/**
 	 * Constructor for LinkedAbstractList
@@ -53,37 +55,66 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	 */
 	@Override
 	public void add(int idx, E element) {
+		int sizeOld = size();
 		if(size == capacity) {
 			throw new IllegalArgumentException();
 		}
 		if(element == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("Element cannot be null.");
 		}
 		if(idx < 0 || idx > size()) {
 			throw new IndexOutOfBoundsException();
 		}
 		
-		ListNode current = front;
-		while(current != null) {
-			if(current.data.equals(element)) {
-				throw new IllegalArgumentException();
+		for (int i = 0; i < idx; i++) {
+			if(element.equals(get(i))) {
+				throw new IllegalArgumentException("Element cannot be a duplicate.");
 			}
-			current = current.next;
 		}
 		
-		if(idx == 0) {
-			if(front == null) {
-				front = new ListNode(element);
-			} else {
-				front = new ListNode(element, front);
-			}
-		} else {
-			current = front;
-			for(int i = 0; i < idx - 1; i++) {
-				current = current.next;
-			}
-			current.next = new ListNode(element, current.next);
+		ListNode insert = front;
+		for (int i = 0; i < idx; i++) {
+			insert = insert.next;
 		}
+		
+		ListNode newNode = new ListNode(element, insert);
+		if (insert == front) {
+			back = front;
+			front = newNode;
+		}
+		else {
+			ListNode prior = front;
+			for (int i = 0; i < idx - 1; i++) {
+				prior = prior.next;
+			}
+			prior.next = newNode;
+			if (idx == sizeOld) {
+				back = newNode;
+			}
+			else {
+				ListNode current = front;
+				ListNode next = current.next;
+				while(next != null) {
+					current = next;
+					next = current.next;
+				}
+				this.back = current;
+			}
+		}
+		
+//		if(idx == 0) {
+//			if(front == null) {
+//				front = new ListNode(element);
+//			} else {
+//				front = new ListNode(element, front);
+//			}
+//		} else {
+//			current = front;
+//			for(int i = 0; i < idx - 1; i++) {
+//				current = current.next;
+//			}
+//			current.next = new ListNode(element, current.next);
+//		}
 		size++;
 	}
 	
@@ -98,20 +129,34 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 			throw new IndexOutOfBoundsException();
 		}
 		
-		E removed = null;
+		ListNode removed = front;
+		for(int i = 0; i < idx; i++) {
+			removed = removed .next;
+		}
+		E removedData = removed.data;
+		
+		
 		if(idx == 0) {
-			removed = front.data;
 			front  = front.next;
 		} else {
-			ListNode current = front;
+			ListNode prior = front;
 			for(int i = 0; i < idx - 1; i++) {
-				current = current.next;
+				prior = prior.next;
 			}
-			removed = current.next.data;
-			current.next = current.next.next;
+			ListNode after = removed.next;
+			prior.next = after;
+		}
+		if (size == 0) {
+			ListNode current = front;
+			ListNode next = current.next;
+			while (next != null) {
+				current = next;
+				next = current.next;
+			}
+			this.back = current;
 		}
 		size--;
-		return removed;
+		return removedData;
 	}
 	
 	/**

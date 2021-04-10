@@ -47,7 +47,7 @@ public class ArrayQueue<E> implements Queue<E> {
 		if (isEmpty()) {
 			list.add(0, element);
 		} else {
-			list.add(list.size() - 1, element);
+			list.add(list.size(), element);
 		}
 	}
 

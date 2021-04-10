@@ -69,6 +69,7 @@ public class LinkedAbstractListTest {
 		try {
 			list.add(5, "honeydew");
 		} catch(IllegalArgumentException e) {
+			assertEquals("Element cannot be a duplicate.", e.getMessage());
 			assertEquals(6, list.size());
 			assertEquals("apple", list.get(0));
 			assertEquals("cat", list.get(2));
@@ -81,6 +82,7 @@ public class LinkedAbstractListTest {
 		try {
 			list.add(5, null);
 		} catch(NullPointerException e) {
+			assertEquals("Element cannot be null.", e.getMessage());
 			assertEquals(6, list.size());
 			assertEquals("apple", list.get(0));
 			assertEquals("cat", list.get(2));
