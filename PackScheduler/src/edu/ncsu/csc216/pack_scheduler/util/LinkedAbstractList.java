@@ -17,7 +17,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	private int capacity;
 	/** First node in the list*/
 	private ListNode front;
-	/**Last node in the list*/
+	/** Last node in the list*/
 	private ListNode back;
 	
 	/**
@@ -131,7 +131,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 		
 		ListNode removed = front;
 		for(int i = 0; i < idx; i++) {
-			removed = removed .next;
+			removed = removed.next;
 		}
 		E removedData = removed.data;
 		

@@ -2,8 +2,10 @@ package edu.ncsu.csc216.pack_scheduler.course.roll;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 
 /**
@@ -25,32 +27,48 @@ public class CourseRollTest {
 	private static final String PASSWORD  = "hashedPassword";
 	/** Student credit amount */
 	private static final int MAXCREDITS = 18;
+	/** The Course associated with the CourseRoll */
+	private static Course c;
+	/** A test CourseRoll */
+	private static CourseRoll roll;
 
+	
+	/**
+	 * Resets the Course and the CourseRoll
+	 */
+	@Before
+	public void setUp() {
+		c = new Course("CSC216", "Programming Concepts - Java", "001", 4, "sesmith5", 10, "A");
+		roll = c.getCourseRoll();
+	}
+	
+	
+	
+	
 	/**
 	 * Test constructor
 	 */
 	@Test
 	public void testCourseRoll() {
 		
-		CourseRoll courseRoll = new CourseRoll(100);
-		assertEquals(100, courseRoll.getEnrollmentCap());
+		assertEquals(10, roll.getEnrollmentCap());
 		
 		try {
-			courseRoll.setEnrollmentCap(9);
+			roll.setEnrollmentCap(9);
 		}
 		catch (IllegalArgumentException e) {
-			assertEquals(100, courseRoll.getEnrollmentCap());
+			assertEquals(10, roll.getEnrollmentCap());
 		}
 		
 		try {
-			courseRoll.setEnrollmentCap(251);
+			roll.setEnrollmentCap(251);
 		}
 		catch (IllegalArgumentException e) {
-			assertEquals(100, courseRoll.getEnrollmentCap());
+			assertEquals(10, roll.getEnrollmentCap());
 		}
 		
-		courseRoll.setEnrollmentCap(150);
-		assertEquals(150, courseRoll.getEnrollmentCap());
+		roll.setEnrollmentCap(150);
+		assertEquals(150, roll.getEnrollmentCap());
 		
 	}
 	
@@ -61,97 +79,106 @@ public class CourseRollTest {
 	public void testEnroll() {
 		
 		Student s = new Student(FIRSTNAME, LASTNAME, ID, EMAIL, PASSWORD, MAXCREDITS);
-		CourseRoll courseRoll = new CourseRoll(10);
 		
 		try {
-			courseRoll.enroll(s);
-			assertEquals(9, courseRoll.getOpenSeats());
+			roll.enroll(s);
+			assertEquals(9, roll.getOpenSeats());
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		
 		try {
-			courseRoll.enroll(s);
+			roll.enroll(s);
 			fail();
 		} catch (IllegalArgumentException e) {
-			assertEquals(9, courseRoll.getOpenSeats());
+			assertEquals(9, roll.getOpenSeats());
 		}
 		
 		try {
-			courseRoll.enroll(null);
+			roll.enroll(null);
 			fail();
 		} catch(IllegalArgumentException e) {
-			assertEquals(9, courseRoll.getOpenSeats());
+			assertEquals(9, roll.getOpenSeats());
 		}
 		
 		try {
-			courseRoll.enroll(new Student("Apple", "Blueberry", "ablue", EMAIL, PASSWORD, MAXCREDITS));
-			assertEquals(8, courseRoll.getOpenSeats());
+			roll.enroll(new Student("Apple", "Blueberry", "ablue", EMAIL, PASSWORD, MAXCREDITS));
+			assertEquals(8, roll.getOpenSeats());
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		
 		try {
-			courseRoll.enroll(new Student("Cantalope", "Dragonfruit", "cdrag", EMAIL, PASSWORD, MAXCREDITS));
-			assertEquals(7, courseRoll.getOpenSeats());
+			roll.enroll(new Student("Cantalope", "Dragonfruit", "cdrag", EMAIL, PASSWORD, MAXCREDITS));
+			assertEquals(7, roll.getOpenSeats());
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		
 		try {
-			courseRoll.enroll(new Student("Grape", "Grapefruit", "ggrape", EMAIL, PASSWORD, MAXCREDITS));
-			assertEquals(6, courseRoll.getOpenSeats());
+			roll.enroll(new Student("Grape", "Grapefruit", "ggrape", EMAIL, PASSWORD, MAXCREDITS));
+			assertEquals(6, roll.getOpenSeats());
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		
 		try {
-			courseRoll.enroll(new Student("Lemon", "Lime", "llime", EMAIL, PASSWORD, MAXCREDITS));
-			assertEquals(5, courseRoll.getOpenSeats());
+			roll.enroll(new Student("Lemon", "Lime", "llime", EMAIL, PASSWORD, MAXCREDITS));
+			assertEquals(5, roll.getOpenSeats());
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		
 		try {
-			courseRoll.enroll(new Student("Mango", "Melon", "mmelon", EMAIL, PASSWORD, MAXCREDITS));
-			assertEquals(4, courseRoll.getOpenSeats());
+			roll.enroll(new Student("Mango", "Melon", "mmelon", EMAIL, PASSWORD, MAXCREDITS));
+			assertEquals(4, roll.getOpenSeats());
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		
 		try {
-			courseRoll.enroll(new Student("Orange", "Pear", "opear", EMAIL, PASSWORD, MAXCREDITS));
-			assertEquals(3, courseRoll.getOpenSeats());
+			roll.enroll(new Student("Orange", "Pear", "opear", EMAIL, PASSWORD, MAXCREDITS));
+			assertEquals(3, roll.getOpenSeats());
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		
 		try {
-			courseRoll.enroll(new Student("Strawberry", "Watermelon", "swater", EMAIL, PASSWORD, MAXCREDITS));
-			assertEquals(2, courseRoll.getOpenSeats());
+			roll.enroll(new Student("Strawberry", "Watermelon", "swater", EMAIL, PASSWORD, MAXCREDITS));
+			assertEquals(2, roll.getOpenSeats());
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		
 		try {
-			courseRoll.enroll(new Student("Apricot", "Blackberry", "ablac", EMAIL, PASSWORD, MAXCREDITS));
-			assertEquals(1, courseRoll.getOpenSeats());
+			roll.enroll(new Student("Apricot", "Blackberry", "ablac", EMAIL, PASSWORD, MAXCREDITS));
+			assertEquals(1, roll.getOpenSeats());
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		
 		try {
-			courseRoll.enroll(new Student("Jim", "Bob", "jbob", EMAIL, PASSWORD, MAXCREDITS));
-			assertEquals(0, courseRoll.getOpenSeats());
+			roll.enroll(new Student("Jim", "Bob", "jbob", EMAIL, PASSWORD, MAXCREDITS));
+			assertEquals(0, roll.getOpenSeats());
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		
 		try {
-			courseRoll.enroll(new Student("Barack", "Obama", "bobam", EMAIL, PASSWORD, MAXCREDITS));
-			fail();
+			roll.enroll(new Student("Barack", "Obama", "bobam", EMAIL, PASSWORD, MAXCREDITS));
+			assertEquals(0, roll.getOpenSeats());
+			assertEquals(1, roll.getNumberOnWaitlist());
 		} catch (IllegalArgumentException e) {
-			assertEquals(0, courseRoll.getOpenSeats());
+			fail();
+		}
+		
+		// Test dropping from the waitlist
+		try {
+			roll.drop(new Student("Barack", "Obama", "bobam", EMAIL, PASSWORD, MAXCREDITS));
+			assertEquals(0, roll.getOpenSeats());
+			assertEquals(0, roll.getNumberOnWaitlist());
+		} catch (IllegalArgumentException e) {
+			fail();
 		}
 	}
 	
@@ -160,23 +187,22 @@ public class CourseRollTest {
 	 */
 	@Test
 	public void testDrop() {
-		CourseRoll courseRoll = new CourseRoll(10);
 	
 		Student s = new Student("Barack", "Obama", "bobam", EMAIL, PASSWORD, MAXCREDITS);
 		
-		courseRoll.enroll(s);
-		assertEquals(9, courseRoll.getOpenSeats());
+		roll.enroll(s);
+		assertEquals(9, roll.getOpenSeats());
 		
 		try {
-			courseRoll.drop(null);
+			roll.drop(null);
 			fail();
 		} catch (IllegalArgumentException e) {
-			assertEquals(9, courseRoll.getOpenSeats());
+			assertEquals(9, roll.getOpenSeats());
 		}
 		
 		try {
-			courseRoll.drop(s);
-			assertEquals(10, courseRoll.getOpenSeats());
+			roll.drop(s);
+			assertEquals(10, roll.getOpenSeats());
 		} catch (IllegalArgumentException e) {
 			fail();
 		}

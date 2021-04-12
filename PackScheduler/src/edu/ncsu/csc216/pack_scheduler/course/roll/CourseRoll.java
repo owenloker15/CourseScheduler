@@ -1,8 +1,10 @@
 package edu.ncsu.csc216.pack_scheduler.course.roll;
 
+
+import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
-import edu.ncsu.csc216.pack_scheduler.util.ArrayStack;
 import edu.ncsu.csc216.pack_scheduler.util.LinkedAbstractList;
+import edu.ncsu.csc216.pack_scheduler.util.LinkedQueue;
 
 /**
  * CourseRoll holds a list of all studnets enrolled in a course and has a
@@ -10,7 +12,7 @@ import edu.ncsu.csc216.pack_scheduler.util.LinkedAbstractList;
  * students from a Course, check if a student can enroll, and return open seats
  * in course
  * 
- * @author Kelsey Hanser, Daniel Nolting, Bleuzen
+ * @author Kelsey Hanser, Daniel Nolting, Nick Bleuzen
  *
  */
 public class CourseRoll {
@@ -19,23 +21,31 @@ public class CourseRoll {
 	private static final int MIN_ENROLLMENT = 10;
 	/** Maximum number of students allowed in a Course */
 	private static final int MAX_ENROLLMENT = 250;
+	/** The number of students allowed on the waitlist of a Course */
+	private static final int WAITLIST_SIZE = 10;
 
 	/** List of Students enrolled */
 	private LinkedAbstractList<Student> roll;
 	/** Maximum number of students allowed to enroll */
 	private int enrollmentCap;
 	/** ArrayStack of Students in the waitlist */
-	private ArrayStack<Student> waitlist;
+	private LinkedQueue<Student> waitlist;
 
 	/**
 	 * Constructor for CourseRoll Initializes list to an empty list with capacity of
 	 * enrollmentCap and sets enrollmentCap to enrollmentCap
 	 * 
+	 * @param c the Course the CourseRoll is associated with
 	 * @param enrollmentCap maximum number of students that can enroll in course
 	 */
-	public CourseRoll(int enrollmentCap) {
+	public CourseRoll(Course c, int enrollmentCap) {
+		if (c == null) {
+			throw new IllegalArgumentException();
+		}
 		roll = new LinkedAbstractList<Student>(enrollmentCap);
 		setEnrollmentCap(enrollmentCap);
+		waitlist = new LinkedQueue<Student>(WAITLIST_SIZE);
+		
 	}
 
 	/**
@@ -90,7 +100,11 @@ public class CourseRoll {
 		if (s == null || !canEnroll(s)) {
 			throw new IllegalArgumentException();
 		}
-		roll.add(s);
+		if (getOpenSeats() == 0) {
+			waitlist.enqueue(s);
+		} else {
+			roll.add(s);
+		}
 	}
 
 	/**
@@ -103,10 +117,18 @@ public class CourseRoll {
 		if (s == null) {
 			throw new IllegalArgumentException();
 		}
+		if (waitlist.contains(s)) {
+			removeStudentFromWaitlist(s);
+			return;
+		}
 		try {
 			for (int i = 0; i < roll.size(); i++) {
 				if (roll.get(i).equals(s)) {
 					roll.remove(i);
+					if (!waitlist.isEmpty()) {
+						Student w = waitlist.dequeue();
+						roll.add(w);
+					}
 					return;
 				}
 			}
@@ -116,14 +138,17 @@ public class CourseRoll {
 	}
 
 	/**
-	 * Checks if a student can enroll in class by checking if there are open seats
+	 * Checks if a student can enroll in class by checking if there are open seats in the class or its waitlist
 	 * and if the student is already enrolled in class
 	 * 
 	 * @param s Student to check if they can enroll
 	 * @return false if they can't enroll in class true if they can enroll in class
 	 */
 	public boolean canEnroll(Student s) {
-		if (getOpenSeats() == 0) {
+		if (getOpenSeats() == 0 && waitlist.size() == WAITLIST_SIZE) {
+			return false;
+		}
+		if (waitlist.contains(s)) {
 			return false;
 		}
 		for (int i = 0; i < roll.size(); i++) {
@@ -132,6 +157,30 @@ public class CourseRoll {
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * Returns the current number of Students on the waitlist
+	 * @return the current number of Students on the waitlist
+	 */
+	public int getNumberOnWaitlist() {
+		return waitlist.size();
+	}
+	
+	/**
+	 * Removes the given Student from the waitlist. Waitlist remains unchanged if the Student is not on the waitlist
+	 * 
+	 * @param s the Student to remove
+	 */
+	private void removeStudentFromWaitlist(Student s) {
+		LinkedQueue<Student> current = new LinkedQueue<Student>(WAITLIST_SIZE);
+		for (int i = 0; i < waitlist.size(); i++) {
+			Student w = waitlist.dequeue();
+			if (!w.equals(s)) {
+				current.enqueue(w);
+			}
+		}
+		waitlist = current;
 	}
 
 }
