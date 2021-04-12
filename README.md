@@ -6,7 +6,7 @@
 
 * **Test ArrayQueue and LinkedQueue** | **Owner:** Calli, **Due:** 4/12, **Status:** Pending
 
-* **Implement and test waitlist** | **Owner:** Daniel, **Due:** 4/12, **Status:** Pending
+* **Implement and test waitlist** | **Owner:** Daniel, **Due:** 4/12, **Status:** Done
 
 * **Optimize AbstractLinkedList** | **Owner:** Owen, **Due:** 4/12, **Status:** Pending
 
