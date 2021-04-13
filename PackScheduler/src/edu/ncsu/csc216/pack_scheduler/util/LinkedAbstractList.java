@@ -66,7 +66,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 			throw new IndexOutOfBoundsException();
 		}
 		
-		for (int i = 0; i < idx; i++) {
+		for (int i = 0; i < size; i++) {
 			if(element.equals(get(i))) {
 				throw new IllegalArgumentException("Element cannot be a duplicate.");
 			}
