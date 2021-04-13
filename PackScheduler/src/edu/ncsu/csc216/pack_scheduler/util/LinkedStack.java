@@ -68,7 +68,7 @@ public class LinkedStack<E> implements Stack<E> {
 	 */
 	@Override
 	public boolean isEmpty() {
-		return (list.size() == 0);
+		return list.size() == 0;
 	}
 
 	/**
