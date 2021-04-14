@@ -61,7 +61,7 @@ public class LinkedList<E> extends AbstractSequentialList<E>{
 		ListNode lastRetrieved;
 		
 		public LinkedListIterator(int index) { 
-			  if (index < 0 || index >= size) {
+			  if (index < 0 || index > size) {
 				  throw new IndexOutOfBoundsException();
 			  }
 			  ListNode current = front;
@@ -154,7 +154,9 @@ public class LinkedList<E> extends AbstractSequentialList<E>{
 				throw new NullPointerException();
 			}
 			lastRetrieved = null;
-			LinkedList.this.set(nextIndex, e);
+			if (contains(e)) {
+				throw new IllegalArgumentException();
+			}
 			size++;
 		}
 		
