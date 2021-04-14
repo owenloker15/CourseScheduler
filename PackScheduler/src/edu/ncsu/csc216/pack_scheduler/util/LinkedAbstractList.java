@@ -216,9 +216,6 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 		this.capacity = capacity;
 	}
 	
-	public int getCapacity() {
-		return this.capacity;
-	}
 	
 	/**
 	 * Inner class of LinkedAbstractList that represents each element in list
