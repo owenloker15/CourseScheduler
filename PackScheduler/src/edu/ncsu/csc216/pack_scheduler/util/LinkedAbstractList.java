@@ -32,7 +32,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 		if(capacity < size) {
 			throw new IllegalArgumentException();
 		}
-		this.capacity = capacity;
+		setCapacity(capacity);
 	}
 	
 	/**
@@ -194,10 +194,10 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	@Override
 	public E set(int idx, E element) {
 		if (element == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("Element cannot be null.");
 		}
 		if(idx < 0 || idx >= size()) {
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("Invalid index.");
 		}
 		
 		ListNode current = front;
@@ -224,7 +224,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	 */
 	public void setCapacity(int capacity) {
 		if (capacity < 0 || capacity < this.capacity) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid capacity.");
 		}
 		this.capacity = capacity;
 	}

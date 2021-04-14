@@ -113,7 +113,7 @@ public class LinkedAbstractListTest {
 		assertEquals("juniper berry", list.get(6));
 		assertEquals("kiwi", list.get(7));
 		
-		list.add(8, "lemon");
+		list.add(7, "mango");
 		assertEquals(9, list.size());
 		assertEquals("apple", list.get(0));
 		assertEquals("cat", list.get(2));
@@ -123,9 +123,9 @@ public class LinkedAbstractListTest {
 		assertEquals("honeydew", list.get(5));
 		assertEquals("juniper berry", list.get(6));
 		assertEquals("kiwi", list.get(7));
-		assertEquals("lemon", list.get(8));
+		assertEquals("mango", list.get(8));
 		
-		list.add(9, "mango");
+		list.add(9, "lemon");
 		assertEquals(10, list.size());
 		assertEquals("apple", list.get(0));
 		assertEquals("cat", list.get(2));
@@ -135,8 +135,9 @@ public class LinkedAbstractListTest {
 		assertEquals("honeydew", list.get(5));
 		assertEquals("juniper berry", list.get(6));
 		assertEquals("kiwi", list.get(7));
-		assertEquals("lemon", list.get(8));
-		assertEquals("mango", list.get(9));
+		assertEquals("mango", list.get(8));
+		assertEquals("lemon", list.get(9));
+		
 		
 		try {
 			list.add(10, "orange");
@@ -150,8 +151,24 @@ public class LinkedAbstractListTest {
 			assertEquals("honeydew", list.get(5));
 			assertEquals("juniper berry", list.get(6));
 			assertEquals("kiwi", list.get(7));
-			assertEquals("lemon", list.get(8));
-			assertEquals("mango", list.get(9));
+			assertEquals("mango", list.get(8));
+			assertEquals("lemon", list.get(9));
+		}
+		
+		try {
+			list.add(-1, "orange");
+		} catch(IllegalArgumentException e) {
+			assertEquals(10, list.size());
+			assertEquals("apple", list.get(0));
+			assertEquals("cat", list.get(2));
+			assertEquals("banana", list.get(1));
+			assertEquals("dragonfruit", list.get(3));
+			assertEquals("grapefruit", list.get(4));
+			assertEquals("honeydew", list.get(5));
+			assertEquals("juniper berry", list.get(6));
+			assertEquals("kiwi", list.get(7));
+			assertEquals("mango", list.get(8));
+			assertEquals("lemon", list.get(9));
 		}
 	}
 	
@@ -204,6 +221,34 @@ public class LinkedAbstractListTest {
 		
 		list.set(3, "cat");
 		assertEquals("cat", list.get(3));
+		
+		try {
+			list.set(3, null);
+		}
+		catch(NullPointerException e) {
+			assertEquals("Element cannot be null.", e.getMessage());
+		}
+		
+		try {
+			list.set(-1, "cat");
+		}
+		catch(IndexOutOfBoundsException e) {
+			assertEquals("Invalid index.", e.getMessage());
+		}
 	}
+	
+//	/***
+//	 * Tests setCapacity method for LinkedAbstractList
+//	 */
+//	@Test
+//	public void testSetCapacity() {
+//		LinkedAbstractList<String> list;
+//		try {
+//			list = new LinkedAbstractList<String>(-1);
+//		}
+//		catch(IllegalArgumentException e) {
+//			assertEquals("Invalid capacity.", e.getMessage());
+//		}
+//	}
 
 }
