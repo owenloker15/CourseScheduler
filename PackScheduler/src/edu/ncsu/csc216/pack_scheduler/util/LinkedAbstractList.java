@@ -225,7 +225,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	 */
 	public void setCapacity(int capacity) {
 		if (capacity < 0 || capacity < this.capacity) {
-			throw new IllegalArgumentException("Invalid capacity.");
+			throw new IllegalArgumentException("test.");
 		}
 		this.capacity = capacity;
 	}
