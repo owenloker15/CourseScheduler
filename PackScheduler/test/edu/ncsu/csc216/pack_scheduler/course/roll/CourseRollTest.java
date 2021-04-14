@@ -28,9 +28,9 @@ public class CourseRollTest {
 	/** Student credit amount */
 	private static final int MAXCREDITS = 18;
 	/** The Course associated with the CourseRoll */
-	private static Course c;
+	private Course c;
 	/** A test CourseRoll */
-	private static CourseRoll roll;
+	private CourseRoll roll;
 
 	
 	/**
@@ -209,6 +209,45 @@ public class CourseRollTest {
 		
 	}
 	
+	/**
+	 * Tests drop and removeStudentFromWaitlist()
+	 */
+	@Test
+	public void testRemoveStudentFromWaitlist() {
+		Student s1 = new Student(FIRSTNAME, LASTNAME, ID, EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s1);
+		Student s2 = new Student("Barack", "Obama", "bobam", EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s2);
+		Student s3 = new Student("Jim", "Bob", "jbob", EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s3);
+		Student s4 = new Student("John", "Doe", "jdoe", EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s4);
+		Student s5 = new Student("Jane", "Doe", "jdoe2", EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s5);
+		Student s6 = new Student("Jimmy", "John", "jjohn", EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s6);
+		Student s7 = new Student("First", "Last", "flast", EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s7);
+		Student s8 = new Student("Joe", "Smith", "jsmith", EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s8);
+		Student s9 = new Student("Sue", "Miller", "smiller", EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s9);
+		Student s10 = new Student("James", "Jones", "jjones", EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s10);
+		
+		Student s11 = new Student("a", "miller", "amiller", EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s11);
+		Student s12 = new Student("b", "miller", "bmiller", EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s12);
+		Student s13 = new Student("c", "miller", "cmiller", EMAIL, PASSWORD, MAXCREDITS);
+		roll.enroll(s13);
+		
+		assertEquals(3, roll.getNumberOnWaitlist());
+		
+		roll.drop(s12);
+		assertEquals(2, roll.getNumberOnWaitlist());
+		roll.drop(s13);
+		assertEquals(1, roll.getNumberOnWaitlist());
+	}
 	
-
 }
