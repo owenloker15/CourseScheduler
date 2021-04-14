@@ -145,7 +145,7 @@ public class CourseRoll {
 	 * @return false if they can't enroll in class true if they can enroll in class
 	 */
 	public boolean canEnroll(Student s) {
-		if (getOpenSeats() == 0 && waitlist.size() == WAITLIST_SIZE) {
+		if (getOpenSeats() == 0 && waitlist != null && waitlist.size() == WAITLIST_SIZE) {
 			return false;
 		}
 		if (waitlist.contains(s)) {
@@ -174,14 +174,17 @@ public class CourseRoll {
 	 */
 	private void removeStudentFromWaitlist(Student s) {
 		LinkedQueue<Student> current = new LinkedQueue<Student>(WAITLIST_SIZE);
-		int size = waitlist.size();
-		for (int i = 0; i < size; i++) {
-			Student w = waitlist.dequeue();
-			if (!w.equals(s)) {
-				current.enqueue(w);
+		if (waitlist != null) {
+			int size = waitlist.size();
+			for (int i = 0; i < size; i++) {
+				Student w = waitlist.dequeue();
+				if (!w.equals(s)) {
+					current.enqueue(w);
+				}
 			}
+			
+			waitlist = current;
 		}
-		waitlist = current;
 	}
 
 }

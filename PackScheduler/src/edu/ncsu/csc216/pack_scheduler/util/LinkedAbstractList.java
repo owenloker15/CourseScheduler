@@ -82,11 +82,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 			back = front;
 			front = newNode;
 		}
-//		else if (idx == size - 1) {
-//			ListNode n = new ListNode(element);
-//			back.next = n;
-//			back = n;
-//		}
+
 		else {
 		
 			ListNode prior = front;
@@ -110,20 +106,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 				this.back = current;
 			}
 		}
-		
-//		if(idx == 0) {
-//			if(front == null) {
-//				front = new ListNode(element);
-//			} else {
-//				front = new ListNode(element, front);
-//			}
-//		} else {
-//			current = front;
-//			for(int i = 0; i < idx - 1; i++) {
-//				current = current.next;
-//			}
-//			current.next = new ListNode(element, current.next);
-//		}
+
 		size++;
 	}
 	
@@ -165,6 +148,9 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 			this.back = current;
 		}
 		size--;
+		if (removedData == null) {
+				System.out.print("null!");
+		}
 		return removedData;
 	}
 	
