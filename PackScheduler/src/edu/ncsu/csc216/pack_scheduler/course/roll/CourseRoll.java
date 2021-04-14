@@ -174,6 +174,9 @@ public class CourseRoll {
 	 */
 	private void removeStudentFromWaitlist(Student s) {
 		LinkedQueue<Student> current = new LinkedQueue<Student>(WAITLIST_SIZE);
+		if (s == null) {
+			throw new IllegalArgumentException();
+		}
 		if (waitlist != null) {
 			int size = waitlist.size();
 			for (int i = 0; i < size; i++) {
