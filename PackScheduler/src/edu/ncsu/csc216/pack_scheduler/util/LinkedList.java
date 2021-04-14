@@ -238,7 +238,11 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 			if (e == null) {
 				throw new NullPointerException();
 			}
-			LinkedList.this.set(nextIndex, e);
+			if (contains(e)) {
+				throw new IllegalArgumentException();
+			}
+			//TODO set the element
+			
 		}
 
 		/**
@@ -254,6 +258,13 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 			lastRetrieved = null;
 			if (contains(e)) {
 				throw new IllegalArgumentException();
+			}
+			//TODO add the element
+			if (previous == null) {
+				new ListNode(e);
+			}
+			else {
+				new ListNode(e, previous, next);
 			}
 			size++;
 		}
@@ -296,7 +307,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		 * @param next the next node in the list
 		 * @param prev the previous node in the list
 		 */
-		public ListNode(E data, ListNode next, ListNode prev) {
+		public ListNode(E data, ListNode prev, ListNode next) {
 			this.data = data;
 			this.next = next;
 			this.prev = next;
