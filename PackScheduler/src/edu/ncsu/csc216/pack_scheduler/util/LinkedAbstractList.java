@@ -148,9 +148,6 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 			this.back = current;
 		}
 		size--;
-		if (removedData == null) {
-				System.out.print("null!");
-		}
 		return removedData;
 	}
 	

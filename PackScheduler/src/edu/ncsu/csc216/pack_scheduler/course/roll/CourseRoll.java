@@ -145,7 +145,7 @@ public class CourseRoll {
 	 * @return false if they can't enroll in class true if they can enroll in class
 	 */
 	public boolean canEnroll(Student s) {
-		if (getOpenSeats() == 0 && waitlist != null && waitlist.size() == WAITLIST_SIZE) {
+		if (getOpenSeats() == 0 && waitlist.size() == WAITLIST_SIZE) {
 			return false;
 		}
 		if (waitlist.contains(s)) {
@@ -164,6 +164,9 @@ public class CourseRoll {
 	 * @return the current number of Students on the waitlist
 	 */
 	public int getNumberOnWaitlist() {
+		if (waitlist == null) {
+			throw new IllegalArgumentException();
+		}
 		return waitlist.size();
 	}
 	
@@ -182,7 +185,6 @@ public class CourseRoll {
 					current.enqueue(w);
 				}
 			}
-			
 			waitlist = current;
 		}
 	}
