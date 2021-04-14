@@ -113,7 +113,32 @@ public class LinkedAbstractListTest {
 		assertEquals("juniper berry", list.get(6));
 		assertEquals("kiwi", list.get(7));
 		
-		list.add(7, "mango");
+//		list.add(7, "mango");
+//		assertEquals(9, list.size());
+//		assertEquals("apple", list.get(0));
+//		assertEquals("cat", list.get(2));
+//		assertEquals("banana", list.get(1));
+//		assertEquals("dragonfruit", list.get(3));
+//		assertEquals("grapefruit", list.get(4));
+//		assertEquals("honeydew", list.get(5));
+//		assertEquals("juniper berry", list.get(6));
+//		assertEquals("kiwi", list.get(7));
+//		assertEquals("mango", list.get(8));
+		
+//		list.add(9, "lemon");
+//		assertEquals(10, list.size());
+//		assertEquals("apple", list.get(0));
+//		assertEquals("cat", list.get(2));
+//		assertEquals("banana", list.get(1));
+//		assertEquals("dragonfruit", list.get(3));
+//		assertEquals("grapefruit", list.get(4));
+//		assertEquals("honeydew", list.get(5));
+//		assertEquals("juniper berry", list.get(6));
+//		assertEquals("kiwi", list.get(7));
+//		assertEquals("mango", list.get(8));
+//		assertEquals("lemon", list.get(9));
+		
+		list.add(8, "lemon");
 		assertEquals(9, list.size());
 		assertEquals("apple", list.get(0));
 		assertEquals("cat", list.get(2));
@@ -123,9 +148,9 @@ public class LinkedAbstractListTest {
 		assertEquals("honeydew", list.get(5));
 		assertEquals("juniper berry", list.get(6));
 		assertEquals("kiwi", list.get(7));
-		assertEquals("mango", list.get(8));
+		assertEquals("lemon", list.get(8));
 		
-		list.add(9, "lemon");
+		list.add(9, "mango");
 		assertEquals(10, list.size());
 		assertEquals("apple", list.get(0));
 		assertEquals("cat", list.get(2));
@@ -135,8 +160,8 @@ public class LinkedAbstractListTest {
 		assertEquals("honeydew", list.get(5));
 		assertEquals("juniper berry", list.get(6));
 		assertEquals("kiwi", list.get(7));
-		assertEquals("mango", list.get(8));
-		assertEquals("lemon", list.get(9));
+		assertEquals("lemon", list.get(8));
+		assertEquals("mango", list.get(9));
 		
 		
 		try {
@@ -151,8 +176,10 @@ public class LinkedAbstractListTest {
 			assertEquals("honeydew", list.get(5));
 			assertEquals("juniper berry", list.get(6));
 			assertEquals("kiwi", list.get(7));
-			assertEquals("mango", list.get(8));
-			assertEquals("lemon", list.get(9));
+//			assertEquals("mango", list.get(8));
+//			assertEquals("lemon", list.get(9));
+			assertEquals("lemon", list.get(8));
+			assertEquals("mango", list.get(9));
 		}
 		
 		try {
@@ -167,9 +194,28 @@ public class LinkedAbstractListTest {
 			assertEquals("honeydew", list.get(5));
 			assertEquals("juniper berry", list.get(6));
 			assertEquals("kiwi", list.get(7));
-			assertEquals("mango", list.get(8));
-			assertEquals("lemon", list.get(9));
+//			assertEquals("mango", list.get(8));
+//			assertEquals("lemon", list.get(9));
+			assertEquals("lemon", list.get(8));
+			assertEquals("mango", list.get(9));
 		}
+		
+		LinkedAbstractList<String> str = new LinkedAbstractList<String>(10);
+		
+		str.add(0, "apple");
+		assertEquals(1, str.size());
+		assertEquals("apple", str.get(0));
+		
+		str.add(0, "orange");
+		assertEquals(2, str.size());
+		assertEquals("orange", str.get(0));
+		assertEquals("apple", str.get(1));
+		
+		str.add(1, "banana");
+		assertEquals(3, str.size());
+		assertEquals("orange", str.get(0));
+		assertEquals("banana", str.get(1));
+		assertEquals("apple", str.get(2));
 	}
 	
 	/**
@@ -236,19 +282,5 @@ public class LinkedAbstractListTest {
 			assertEquals("Invalid index.", e.getMessage());
 		}
 	}
-	
-//	/***
-//	 * Tests setCapacity method for LinkedAbstractList
-//	 */
-//	@Test
-//	public void testSetCapacity() {
-//		LinkedAbstractList<String> list;
-//		try {
-//			list = new LinkedAbstractList<String>(-1);
-//		}
-//		catch(IllegalArgumentException e) {
-//			assertEquals("Invalid capacity.", e.getMessage());
-//		}
-//	}
 
 }

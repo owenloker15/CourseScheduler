@@ -82,11 +82,12 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 			back = front;
 			front = newNode;
 		}
-		else if (idx == size - 1) {
-			ListNode n = new ListNode(element);
-			back.next = n;
-			back = n;
-		} else {
+//		else if (idx == size - 1) {
+//			ListNode n = new ListNode(element);
+//			back.next = n;
+//			back = n;
+//		}
+		else {
 		
 			ListNode prior = front;
 			for (int i = 0; i < idx - 1; i++) {
