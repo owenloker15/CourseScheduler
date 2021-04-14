@@ -174,7 +174,8 @@ public class CourseRoll {
 	 */
 	private void removeStudentFromWaitlist(Student s) {
 		LinkedQueue<Student> current = new LinkedQueue<Student>(WAITLIST_SIZE);
-		for (int i = 0; i < waitlist.size(); i++) {
+		int size = waitlist.size();
+		for (int i = 0; i < size; i++) {
 			Student w = waitlist.dequeue();
 			if (!w.equals(s)) {
 				current.enqueue(w);
