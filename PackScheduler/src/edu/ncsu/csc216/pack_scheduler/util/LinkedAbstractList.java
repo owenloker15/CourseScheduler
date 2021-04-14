@@ -96,6 +96,9 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 			prior.next = newNode;
 			if (idx == sizeOld) {
 				back = newNode;
+				if (back == null) {
+					back = front;
+				}
 			}
 			else {
 				ListNode current = front;
@@ -224,7 +227,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	 * @throws IllegalArgumentException if capacity is less than 0 or the current capacity
 	 */
 	public void setCapacity(int capacity) {
-		if (capacity < 0) { //|| capacity < this.capacity
+		if (capacity < 0) {
 			throw new IllegalArgumentException("test.");
 		}
 		this.capacity = capacity;
