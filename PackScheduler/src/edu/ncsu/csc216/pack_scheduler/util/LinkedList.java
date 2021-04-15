@@ -111,7 +111,9 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		ListNode lastRetrieved;
 
 		/**
-		 * Constructs the LinkedListIterator object
+		 * Constructs the LinkedListIterator object that lies between 2 nodes in a
+		 * LinkedList. It can identify if there are next or previous elements, and what
+		 * they are.
 		 * 
 		 * @param index the index to position the iterator
 		 */
@@ -137,7 +139,6 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		 */
 		@Override
 		public boolean hasNext() {
-
 			return nextIndex < size;
 		}
 
@@ -241,8 +242,8 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 			if (contains(e)) {
 				throw new IllegalArgumentException();
 			}
-			//TODO set the element
-			
+			// TODO set the element
+
 		}
 
 		/**
@@ -259,12 +260,13 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 			if (contains(e)) {
 				throw new IllegalArgumentException();
 			}
-			//TODO add the element
+			// TODO add the element
 			if (previous == null) {
 				new ListNode(e);
-			}
-			else {
-				new ListNode(e, previous, next);
+			} else {
+				ListNode newNode = new ListNode(e, previous, next);				
+				next = newNode.next;
+				previous = newNode;
 			}
 			size++;
 		}
