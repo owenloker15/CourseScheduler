@@ -19,8 +19,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author owenloker
- *
+ * Tests the FacultyDirectory class
+ * 
+ * @author Daniel Nolting
+ * @author Calli Hooks
+ * @author Owen Loker
  */
 public class FacultyDirectoryTest {
 	
@@ -77,7 +80,7 @@ public class FacultyDirectoryTest {
 	 */
 	@Test
 	public void testNewFacultyDirectory() {
-		//Test that if there are Facultys in the directory, they 
+		//Test that if there are Faculty in the directory, they 
 		//are removed after calling newFacultyDirectory().
 		FacultyDirectory fd = new FacultyDirectory();
 		
@@ -165,21 +168,21 @@ public class FacultyDirectoryTest {
 		
 		//Test valid Faculty
 		fd.addFaculty(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, PASSWORD, MAX_COURSES);
-		String [][] FacultyDirectory = fd.getFacultyDirectory();
-		assertEquals(1, FacultyDirectory.length);
-		assertEquals(FIRST_NAME, FacultyDirectory[0][0]);
-		assertEquals(LAST_NAME, FacultyDirectory[0][1]);
-		assertEquals(ID, FacultyDirectory[0][2]);
+		String [][] facultyDirectory = fd.getFacultyDirectory();
+		assertEquals(1, facultyDirectory.length);
+		assertEquals(FIRST_NAME, facultyDirectory[0][0]);
+		assertEquals(LAST_NAME, facultyDirectory[0][1]);
+		assertEquals(ID, facultyDirectory[0][2]);
 		
 		// Test duplicate Faculty add
 		fd.addFaculty(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, PASSWORD, MAX_COURSES);
-		FacultyDirectory = fd.getFacultyDirectory();
-		assertEquals(1, FacultyDirectory.length);
+		facultyDirectory = fd.getFacultyDirectory();
+		assertEquals(1, facultyDirectory.length);
 		
 		// Test non-duplicate Faculty add
 		fd.addFaculty(FIRST_NAME, LAST_NAME, "abcool5", EMAIL, PASSWORD, PASSWORD, MAX_COURSES);
-		FacultyDirectory = fd.getFacultyDirectory();
-		assertEquals(2, FacultyDirectory.length);
+		facultyDirectory = fd.getFacultyDirectory();
+		assertEquals(2, facultyDirectory.length);
 		
 	}
 
@@ -190,15 +193,15 @@ public class FacultyDirectoryTest {
 	public void testRemoveFaculty() {
 		FacultyDirectory fd = new FacultyDirectory();
 				
-		//Add Facultys and remove
+		//Add Faculty and remove
 		fd.loadFacultyFromFile(validTestFile);
 		assertEquals(10, fd.getFacultyDirectory().length);
 		assertTrue(fd.removeFaculty("efrost"));
-		String [][] FacultyDirectory = fd.getFacultyDirectory();
-		assertEquals(9, FacultyDirectory.length);
-		assertEquals("Lane", FacultyDirectory[1][0]);
-		assertEquals("Berg", FacultyDirectory[1][1]);
-		assertEquals("lberg", FacultyDirectory[1][2]);
+		String [][] facultyDirectory = fd.getFacultyDirectory();
+		assertEquals(9, facultyDirectory.length);
+		assertEquals("Lane", facultyDirectory[1][0]);
+		assertEquals("Berg", facultyDirectory[1][1]);
+		assertEquals("lberg", facultyDirectory[1][2]);
 	}
 	
 	/**
