@@ -65,13 +65,13 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 	 * @param index   the index the element will be added at
 	 * @param element the element to be added
 	 */
-	@Override
-	public void add(int index, E element) {
-		if (contains(element)) {
-			throw new IllegalArgumentException();
-		}
-		super.add(index, element);
-	}
+//	@Override
+//	public void add(int index, E element) {
+//		if (contains(element)) {
+//			throw new IllegalArgumentException();
+//		}
+//		super.add(index, element);
+//	}
 
 	/**
 	 * Sets the given element at the given index
@@ -239,9 +239,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 			if (e == null) {
 				throw new NullPointerException();
 			}
-			if (contains(e)) {
-				throw new IllegalArgumentException();
-			}
+
 			// TODO set the element
 
 		}
@@ -256,19 +254,22 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 			if (e == null) {
 				throw new NullPointerException();
 			}
-			lastRetrieved = null;
-			if (contains(e)) {
-				throw new IllegalArgumentException();
-			}
-			// TODO add the element
-			if (previous == null) {
-				new ListNode(e);
+			
+			ListNode n = null;
+			if (previousIndex == -1) {
+			    n = new ListNode(e);
 			} else {
-				ListNode newNode = new ListNode(e, previous, next);				
-				next = newNode.next;
-				previous = newNode;
+				n = new ListNode(e, previous, next);
 			}
+			
+			previous = n.prev;
+			
+			next = n;
+			
+			lastRetrieved = null;
+			
 			size++;
+			
 		}
 
 	}
