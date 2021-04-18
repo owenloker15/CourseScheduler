@@ -122,7 +122,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 				throw new IndexOutOfBoundsException();
 			}
 			ListNode current = front;
-			for (int i = 0; i < index; i++) {
+			for (int i = -1; i < index - 1; i++) {
 				current = current.next;
 			}
 			next = current.next;
@@ -155,7 +155,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 			E returnData = next.data;
 			lastRetrieved = next;
 			next = next.next;
-			previous = next.prev;
+			previous = next;
 			nextIndex++;
 			previousIndex++;
 			return returnData;
@@ -255,14 +255,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 				throw new NullPointerException();
 			}
 			
-			ListNode n = null;
-			if (previousIndex == -1) {
-			    n = new ListNode(e);
-			} else {
-				n = new ListNode(e, previous, next);
-			}
-			
-			previous = n.prev;
+			ListNode n = new ListNode(e, previous, next);
 			
 			next = n;
 			
