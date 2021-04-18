@@ -29,6 +29,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 	 * set to null, and the size is 0.
 	 */
 	public LinkedList() {
+	
 		front = new ListNode(null);
 		back = new ListNode(null);
 		front.next = back;
@@ -65,13 +66,13 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 	 * @param index   the index the element will be added at
 	 * @param element the element to be added
 	 */
-//	@Override
-//	public void add(int index, E element) {
-//		if (contains(element)) {
-//			throw new IllegalArgumentException();
-//		}
-//		super.add(index, element);
-//	}
+	@Override
+	public void add(int index, E element) {
+		if (contains(element)) {
+			throw new IllegalArgumentException();
+		}
+		super.add(index, element);
+	}
 
 	/**
 	 * Sets the given element at the given index
@@ -100,15 +101,15 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 	private class LinkedListIterator implements ListIterator<E> {
 
 		/** The ListNode that would be returned on a call to previous() */
-		ListNode previous;
+		public ListNode previous;
 		/** the ListNode that would be returned on a call to next() */
-		ListNode next;
+		public ListNode next;
 		/** The index that would be returned on a call to previousIndex() */
-		int previousIndex;
+		public int previousIndex;
 		/** he index that would be returned on a call to nextIndex() */
-		int nextIndex;
+		public int nextIndex;
 		/** The ListNode returned on the last call to either previous() or next() */
-		ListNode lastRetrieved;
+		private ListNode lastRetrieved;
 
 		/**
 		 * Constructs the LinkedListIterator object that lies between 2 nodes in a
@@ -125,6 +126,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 			for (int i = -1; i < index - 1; i++) {
 				current = current.next;
 			}
+				
 			next = current.next;
 			previous = current;
 			previousIndex = index - 1;
@@ -139,7 +141,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		 */
 		@Override
 		public boolean hasNext() {
-			return nextIndex < size;
+			return next.data != null;
 		}
 
 		/**
@@ -149,13 +151,13 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		 */
 		@Override
 		public E next() {
-			if (!hasNext() || next.data == null) {
+			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
 			E returnData = next.data;
 			lastRetrieved = next;
-			next = next.next;
 			previous = next;
+			next = next.next;
 			nextIndex++;
 			previousIndex++;
 			return returnData;
@@ -169,7 +171,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		 */
 		@Override
 		public boolean hasPrevious() {
-			return previousIndex > 0;
+			return previous.data != null;
 		}
 
 		/**
@@ -179,15 +181,15 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		 */
 		@Override
 		public E previous() {
-			if (!hasPrevious() || previous.data == null) {
+			if (!hasPrevious()) {
 				throw new NoSuchElementException();
 			}
 			E returnData = previous.data;
 			lastRetrieved = previous;
-			next = next.prev;
-			previous = next;
-			nextIndex++;
-			previousIndex++;
+			next = previous;
+			previous = previous.prev;
+			nextIndex--;
+			previousIndex--;
 			return returnData;
 
 		}
@@ -199,6 +201,9 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		 */
 		@Override
 		public int nextIndex() {
+			if (nextIndex >= size - 1) {
+				return size;
+			}
 			return nextIndex;
 		}
 
@@ -209,6 +214,9 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		 */
 		@Override
 		public int previousIndex() {
+			if (nextIndex <= 0) {
+				return -1;
+			}
 			return previousIndex;
 		}
 
@@ -239,6 +247,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 			if (e == null) {
 				throw new NullPointerException();
 			}
+			lastRetrieved.data = e;
 
 			// TODO set the element
 
@@ -254,15 +263,10 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 			if (e == null) {
 				throw new NullPointerException();
 			}
-			
-			ListNode n = new ListNode(e, previous, next);
-			
-			next = n;
-			
+			next = new ListNode(e, previous, next);
+			previous.next = next;
 			lastRetrieved = null;
-			
-			size++;
-			
+			size++;	
 		}
 
 	}
@@ -306,7 +310,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		public ListNode(E data, ListNode prev, ListNode next) {
 			this.data = data;
 			this.next = next;
-			this.prev = next;
+			this.prev = prev;
 		}
 	}
 
