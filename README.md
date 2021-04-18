@@ -2,7 +2,7 @@
 
 ## Lab 10
 
-* **Implement and Test Custom LinkedList** | **Owner:** Daniel,Calli,Owen **Due:** 4/19, **Status:** In Progress
+* **Implement and Test Custom LinkedList** | **Owner:** Daniel,Calli,Owen **Due:** 4/19, **Status:** Done
 
 * **Implement and Test Faculty** | **Owner:** Owen, **Due:** 4/12, **Status:** Done
 
