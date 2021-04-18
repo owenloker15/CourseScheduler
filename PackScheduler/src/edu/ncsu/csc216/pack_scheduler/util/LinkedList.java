@@ -249,8 +249,6 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 			}
 			lastRetrieved.data = e;
 
-			// TODO set the element
-
 		}
 
 		/**
