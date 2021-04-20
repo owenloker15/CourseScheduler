@@ -127,7 +127,7 @@ public class FacultyDirectory {
 				throw new IllegalArgumentException("Faculty already in system.");
 			}
 		}
-		return this.facultyDirectory.add(new Faculty(firstName, lastName, id, email, password, maxCourses));
+		return this.facultyDirectory.add(new Faculty(firstName, lastName, id, email, hashPW, maxCourses));
 	}
 
 	/**

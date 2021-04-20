@@ -72,6 +72,16 @@ public class RegistrationManagerTest {
 		manager.getStudentDirectory().loadStudentsFromFile("test-files/student_records.txt");
 		assertEquals(10, manager.getStudentDirectory().getStudentDirectory().length);
 	}
+	
+	/**
+	 * Tests getFacultyDirectory
+	 */
+	@Test
+	public void testGetFacultyDirectory() {
+		assertEquals(0, manager.getFacultyDirectory().getFacultyDirectory().length);
+		manager.getFacultyDirectory().loadFacultyFromFile("test-files/faculty_records.txt");
+		assertEquals(8, manager.getStudentDirectory().getStudentDirectory().length);
+	}
 
 	/**
 	 * Tests Login
@@ -121,6 +131,17 @@ public class RegistrationManagerTest {
 		
 		try {
 			assertTrue(manager.login(id, password));
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		
+		manager.logout();
+		
+		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
+		
+		try {
+			assertTrue(manager.login("japples", "password"));
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
