@@ -78,7 +78,6 @@ public class RegistrationManagerTest {
 	 */
 	@Test
 	public void testGetFacultyDirectory() {
-		//assertEquals(0, manager.getFacultyDirectory().getFacultyDirectory().length);
 		manager.getFacultyDirectory().loadFacultyFromFile("test-files/faculty_records.txt");
 		assertEquals(8, manager.getFacultyDirectory().getFacultyDirectory().length);
 	}
@@ -156,6 +155,15 @@ public class RegistrationManagerTest {
 			
 			assertEquals("User doesn't exist.", e.getMessage());
 		}
+		
+		try {
+			manager.login(null, "fakepassword");
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Invalid ID or password.", e.getMessage());
+		}
+		
+		
 		
 		
 	}
