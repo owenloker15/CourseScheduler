@@ -163,8 +163,12 @@ public class RegistrationManagerTest {
 			assertEquals("Invalid ID or password.", e.getMessage());
 		}
 		
-		
-		
+		try {
+			manager.login("efrost", null);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Invalid ID or password.", e.getMessage());
+		}
 		
 	}
 
