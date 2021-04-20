@@ -126,7 +126,7 @@ public class FacultyRecordIOTest {
 		
 		// Check empty file handling
 		try {
-			readfacultyList = FacultyRecordIO.readFacultyRecords("test-files/invalid_Faculty_records.txt");
+			readfacultyList = FacultyRecordIO.readFacultyRecords("test-files/invalid_faculty_records.txt");
 		} catch (FileNotFoundException e) {
 			fail("The invalid_faculty_records.txt file could not be found in the test-files directory.");
 		}
