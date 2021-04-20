@@ -135,15 +135,15 @@ public class RegistrationManagerTest {
 		}
 		
 		
-//		manager.logout();
-//		
-//		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
-//		
-//		try {
-//			assertTrue(manager.login("japples", "password"));
-//		} catch (IllegalArgumentException e) {
-//			fail();
-//		}
+		manager.logout();
+		
+		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
+		
+		try {
+			assertTrue(manager.login("japples", "password"));
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
 		
 		
 		manager.logout();
