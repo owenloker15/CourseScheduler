@@ -18,6 +18,7 @@ import java.util.Scanner;
 import org.junit.Before;
 import org.junit.Test;
 
+
 /**
  * Tests the FacultyDirectory class
  * 
@@ -26,7 +27,7 @@ import org.junit.Test;
  * @author Owen Loker
  */
 public class FacultyDirectoryTest {
-	
+
 	/** Valid course records */
 	private final String validTestFile = "test-files/faculty_records.txt";
 	/** Course record file that does not exist */
@@ -43,14 +44,15 @@ public class FacultyDirectoryTest {
 	private static final String PASSWORD = "pw";
 	/** Test max credits */
 	private static final int MAX_COURSES = 2;
-	
+
 	/**
 	 * Resets course_records.txt for use in other tests.
+	 * 
 	 * @throws Exception if something fails during setup.
 	 */
 	@Before
-	public void setUp() throws Exception {		
-		//Reset Faculty_records.txt so that it's fine for other needed tests
+	public void setUp() throws Exception {
+		// Reset Faculty_records.txt so that it's fine for other needed tests
 		Path sourcePath = FileSystems.getDefault().getPath("test-files", "expected_full_faculty_records.txt");
 		Path destinationPath = FileSystems.getDefault().getPath("test-files", "faculty_records.txt");
 		try {
@@ -66,13 +68,11 @@ public class FacultyDirectoryTest {
 	 */
 	@Test
 	public void testFacultyDirectory() {
-		//Test that the FacultyDirectory is initialized to an empty list
+		// Test that the FacultyDirectory is initialized to an empty list
 		FacultyDirectory fd = new FacultyDirectory();
 		assertFalse(fd.removeFaculty("sesmith5"));
 		assertEquals(0, fd.getFacultyDirectory().length);
-		
-		
-		
+
 	}
 
 	/**
@@ -80,13 +80,13 @@ public class FacultyDirectoryTest {
 	 */
 	@Test
 	public void testNewFacultyDirectory() {
-		//Test that if there are Faculty in the directory, they 
-		//are removed after calling newFacultyDirectory().
+		// Test that if there are Faculty in the directory, they
+		// are removed after calling newFacultyDirectory().
 		FacultyDirectory fd = new FacultyDirectory();
-		
+
 		fd.loadFacultyFromFile(validTestFile);
-		assertEquals(10, fd.getFacultyDirectory().length);
-		
+		assertEquals(8, fd.getFacultyDirectory().length);
+
 		fd.newFacultyDirectory();
 		assertEquals(0, fd.getFacultyDirectory().length);
 	}
@@ -97,12 +97,12 @@ public class FacultyDirectoryTest {
 	@Test
 	public void testLoadFacultysFromFile() {
 		FacultyDirectory fd = new FacultyDirectory();
-				
-		//Test valid file
+
+		// Test valid file
 		fd.loadFacultyFromFile(validTestFile);
-		assertEquals(10, fd.getFacultyDirectory().length);
-		
-		//Test file that does not exist
+		assertEquals(8, fd.getFacultyDirectory().length);
+
+		// Test file that does not exist
 		FacultyDirectory fd2 = new FacultyDirectory();
 		try {
 			fd2.loadFacultyFromFile(nonrealTestFile);
@@ -118,13 +118,13 @@ public class FacultyDirectoryTest {
 	@Test
 	public void testAddFaculty() {
 		FacultyDirectory fd = new FacultyDirectory();
-		
-		//Test invalid Faculty (null pw, null repeat pw, empty pw, empty repeat pw)
+
+		// Test invalid Faculty (null pw, null repeat pw, empty pw, empty repeat pw)
 		try {
 			fd.addFaculty(FIRST_NAME, LAST_NAME, ID, EMAIL, null, PASSWORD, MAX_COURSES);
 			fail();
 		} catch (IllegalArgumentException e) {
-			String [][] directory = fd.getFacultyDirectory();
+			String[][] directory = fd.getFacultyDirectory();
 			assertEquals(0, directory.length);
 			assertEquals("Invalid password", e.getMessage());
 		}
@@ -132,7 +132,7 @@ public class FacultyDirectoryTest {
 			fd.addFaculty(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, null, MAX_COURSES);
 			fail();
 		} catch (IllegalArgumentException e) {
-			String [][] directory = fd.getFacultyDirectory();
+			String[][] directory = fd.getFacultyDirectory();
 			assertEquals(0, directory.length);
 			assertEquals("Invalid password", e.getMessage());
 		}
@@ -140,7 +140,7 @@ public class FacultyDirectoryTest {
 			fd.addFaculty(FIRST_NAME, LAST_NAME, ID, EMAIL, "", PASSWORD, MAX_COURSES);
 			fail();
 		} catch (IllegalArgumentException e) {
-			String [][] directory = fd.getFacultyDirectory();
+			String[][] directory = fd.getFacultyDirectory();
 			assertEquals(0, directory.length);
 			assertEquals("Invalid password", e.getMessage());
 		}
@@ -148,42 +148,42 @@ public class FacultyDirectoryTest {
 			fd.addFaculty(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, "", MAX_COURSES);
 			fail();
 		} catch (IllegalArgumentException e) {
-			String [][] directory = fd.getFacultyDirectory();
+			String[][] directory = fd.getFacultyDirectory();
 			assertEquals(0, directory.length);
 			assertEquals("Invalid password", e.getMessage());
 		}
-		
+
 		// Test invalid Faculty (pw mismatch)
 		try {
 			fd.addFaculty(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, "abc", MAX_COURSES);
 			fail();
 		} catch (IllegalArgumentException e) {
-			String [][] directory = fd.getFacultyDirectory();
+			String[][] directory = fd.getFacultyDirectory();
 			assertEquals(0, directory.length);
 			assertEquals("Passwords do not match", e.getMessage());
 		}
-		
-		//Test valid Faculty (trigger too few credits fail-safe)
-		fd.addFaculty(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, PASSWORD, 1);
-		
-		//Test valid Faculty
+
+		// Test valid Faculty
 		fd.addFaculty(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, PASSWORD, MAX_COURSES);
-		String [][] facultyDirectory = fd.getFacultyDirectory();
+		String[][] facultyDirectory = fd.getFacultyDirectory();
 		assertEquals(1, facultyDirectory.length);
 		assertEquals(FIRST_NAME, facultyDirectory[0][0]);
 		assertEquals(LAST_NAME, facultyDirectory[0][1]);
 		assertEquals(ID, facultyDirectory[0][2]);
-		
+
 		// Test duplicate Faculty add
-		fd.addFaculty(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, PASSWORD, MAX_COURSES);
-		facultyDirectory = fd.getFacultyDirectory();
-		assertEquals(1, facultyDirectory.length);
-		
+		try {
+			fd.addFaculty(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, PASSWORD, MAX_COURSES);
+		} catch (IllegalArgumentException e) {
+			assertEquals("Faculty already in system.", e.getMessage());
+			assertEquals(1, facultyDirectory.length);
+		}
+
 		// Test non-duplicate Faculty add
 		fd.addFaculty(FIRST_NAME, LAST_NAME, "abcool5", EMAIL, PASSWORD, PASSWORD, MAX_COURSES);
 		facultyDirectory = fd.getFacultyDirectory();
 		assertEquals(2, facultyDirectory.length);
-		
+
 	}
 
 	/**
@@ -192,34 +192,37 @@ public class FacultyDirectoryTest {
 	@Test
 	public void testRemoveFaculty() {
 		FacultyDirectory fd = new FacultyDirectory();
-				
-		//Add Faculty and remove
+
+		// Add Faculty and remove
 		fd.loadFacultyFromFile(validTestFile);
-		assertEquals(10, fd.getFacultyDirectory().length);
-		assertTrue(fd.removeFaculty("efrost"));
-		String [][] facultyDirectory = fd.getFacultyDirectory();
-		assertEquals(9, facultyDirectory.length);
-		assertEquals("Lane", facultyDirectory[1][0]);
-		assertEquals("Berg", facultyDirectory[1][1]);
-		assertEquals("lberg", facultyDirectory[1][2]);
+		assertEquals(8, fd.getFacultyDirectory().length);
+		assertTrue(fd.removeFaculty("awitt"));
+		String[][] facultyDirectory = fd.getFacultyDirectory();
+		assertEquals(7, facultyDirectory.length);
+		assertEquals("Fiona", facultyDirectory[0][0]);
+		assertEquals("Meadows", facultyDirectory[0][1]);
+		assertEquals("fmeadow", facultyDirectory[0][2]);
+		assertEquals("Brent", facultyDirectory[1][0]);
+
 	}
-	
+
 	/**
-	 * Tests saveFacultyDirectory(), specifically ensuring that it throws an exception when attempting to write somewhere it does not have permission
+	 * Tests saveFacultyDirectory(), specifically ensuring that it throws an
+	 * exception when attempting to write somewhere it does not have permission
 	 */
 	@Test
 	public void testSaveFacultyDirectoryNoPermissions() {
 		FacultyDirectory fd = new FacultyDirectory();
-		fd.addFaculty("Zahir", "King", "zking", "orci.Donec@ametmassaQuisque.com", "pw", "pw", 15);
+		fd.addFaculty("Zahir", "King", "zking", "orci.Donec@ametmassaQuisque.com", "pw", "pw", 2);
 
-	    try {
-	    	fd.saveFacultyDirectory("/home/sesmith5/actual_Faculty_records.txt");
-	        fail("Attempted to write to a directory location that doesn't exist or without the appropriate permissions and the write happened.");
-	    } catch (IllegalArgumentException e) {
-	        assertEquals("Unable to write to file /home/sesmith5/actual_Faculty_records.txt", e.getMessage());
-	        //The actual error message on Jenkins!
-	    }
-	    
+		try {
+			fd.saveFacultyDirectory("/home/sesmith5/actual_Faculty_records.txt");
+			fail("Attempted to write to a directory location that doesn't exist or without the appropriate permissions and the write happened.");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Unable to write to file /home/sesmith5/actual_Faculty_records.txt", e.getMessage());
+			// The actual error message on Jenkins!
+		}
+
 	}
 
 	/**
@@ -228,22 +231,25 @@ public class FacultyDirectoryTest {
 	@Test
 	public void testSaveFacultyDirectory() {
 		FacultyDirectory fd = new FacultyDirectory();
-		
-		//Add a Faculty
-		fd.addFaculty("Zahir", "King", "zking", "orci.Donec@ametmassaQuisque.com", "pw", "pw", 2);
-		assertEquals(1, fd.getFacultyDirectory().length);
-		
+
+		// Add a Faculty
+		fd.addFaculty("Ashely", "Witt", "awitt", "mollis@Fuscealiquetmagna.net", "pw", "pw", 2);
+		fd.addFaculty("Fiona", "Meadows", "fmeadow", "pharetra.sed@et.org", "pw", "pw", 3);
+		fd.addFaculty("Brent", "Brewer", "bbrewer", "sem.semper@orcisem.co.uk", "pw", "pw", 1);
+		assertEquals(3, fd.getFacultyDirectory().length);
+
 		try {
-	    	fd.saveFacultyDirectory("test-files/actual_faculty_records.txt");
+			fd.saveFacultyDirectory("test-files/actual_faculty_records.txt");
 		} catch (IllegalArgumentException e) {
 			fail("Could not write to the test-files directory, error message: " + e.getMessage());
 		}
-	    checkFiles("test-files/expected_faculty_records.txt", "test-files/actual_faculty_records.txt");
-		
+		checkFiles("test-files/expected_faculty_records.txt", "test-files/actual_faculty_records.txt");
+
 	}
-	
+
 	/**
 	 * Helper method to compare two files for the same contents
+	 * 
 	 * @param expFile expected output
 	 * @param actFile actual output
 	 */
@@ -251,11 +257,11 @@ public class FacultyDirectoryTest {
 		try {
 			Scanner expScanner = new Scanner(new FileInputStream(expFile));
 			Scanner actScanner = new Scanner(new FileInputStream(actFile));
-			
+
 			while (expScanner.hasNextLine()) {
 				assertEquals(expScanner.nextLine(), actScanner.nextLine());
 			}
-			
+
 			expScanner.close();
 			actScanner.close();
 		} catch (IOException e) {

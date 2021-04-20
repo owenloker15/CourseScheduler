@@ -80,6 +80,15 @@ public class LinkedListTest {
 		assertEquals(12, list.size());
 		assertEquals("pomegranite", list.get(11));
 
+		// Try to add null element
+		try {
+			list.add(11, null);
+			fail();
+		} catch (NullPointerException e) {
+			assertEquals("pomegranite", list.get(11));
+
+		}
+
 	}
 
 	/**
@@ -131,4 +140,43 @@ public class LinkedListTest {
 		assertEquals("cat", list.get(3));
 	}
 
+	
+	/**
+	 * Tests the ListIterator method
+	 */
+	@Test
+	public void testListIterator() {
+		LinkedList<String> list = new LinkedList<String>();
+		list.listIterator(0);
+		assertEquals(-1, list.listIterator(0).previousIndex());
+		assertEquals(0, list.listIterator(0).nextIndex());
+		assertFalse(list.listIterator(0).hasNext());
+		assertFalse(list.listIterator(0).hasPrevious());
+	}
+	
+	/**
+	 * Tests the previous method
+	 */
+	@Test
+	public void testPrevious() {
+		LinkedList<String> list = new LinkedList<String>();
+		list.add(0, "apple");
+		list.add(1, "banana");
+		list.add(2, "orange");
+		list.listIterator(1);
+		assertEquals("apple", list.listIterator(1).previous());
+	}
+	
+	/**
+	 * Tests the next method
+	 */
+	@Test
+	public void testNext() {
+		LinkedList<String> list = new LinkedList<String>();
+		list.add(0, "apple");
+		list.add(1, "banana");
+		list.add(2, "orange");
+		list.listIterator(1);
+		assertEquals("banana", list.listIterator(1).next());
+	}
 }
