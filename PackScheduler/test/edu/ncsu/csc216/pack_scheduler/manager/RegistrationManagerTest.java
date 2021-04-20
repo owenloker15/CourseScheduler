@@ -101,7 +101,6 @@ public class RegistrationManagerTest {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		
 		manager.logout();
 		
 		try {
@@ -133,8 +132,6 @@ public class RegistrationManagerTest {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		
-		
 		manager.logout();
 		
 		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
@@ -144,7 +141,6 @@ public class RegistrationManagerTest {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		
 		manager.logout();
 
 				
@@ -154,8 +150,6 @@ public class RegistrationManagerTest {
 		} catch (IllegalArgumentException e) {
 			assertEquals("User doesn't exist.", e.getMessage());
 		}
-		
-		
 		manager.logout();
 		
 		try {
