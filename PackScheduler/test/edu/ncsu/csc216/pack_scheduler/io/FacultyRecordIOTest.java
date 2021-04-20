@@ -28,9 +28,9 @@ import edu.ncsu.csc216.pack_scheduler.util.LinkedList;
  */
 public class FacultyRecordIOTest {
 	/** The expected number of facultyList in faculty_records.txt */
-	private final static int EXPECTED_FACULTY_COUNT = 3;
+	private final static int EXPECTED_FACULTY_COUNT = 8;
 	/** Expected string representation of Faculty no. 0 in sorted faculty_records.txt */
-	private String validFaculty0 = "Ashley,Witt,awitt,mollis@Fuscealiquetmagna.net,pw,2";
+	private String validFaculty0 = "Ashely,Witt,awitt,mollis@Fuscealiquetmagna.net,pw,2";
 	/** Expected string representation of Faculty no. 1 in sorted faculty_records.txt */
 	private String validFaculty1 = "Fiona,Meadows,fmeadow,pharetra.sed@et.org,pw,3";
 	/** Expected string representation of Faculty no. 2 in sorted faculty_records.txt */
@@ -120,7 +120,7 @@ public class FacultyRecordIOTest {
 		assertEquals(EXPECTED_FACULTY_COUNT, readfacultyList.size());
 		
 		// Check that each Faculty has all its data from its string
-		for (int i = 0; i < EXPECTED_FACULTY_COUNT; i++) {
+		for (int i = 0; i < 3; i++) {
 			assertEquals(validfacultyList[i].toString(), readfacultyList.get(i).toString());
 		}
 		
@@ -133,21 +133,21 @@ public class FacultyRecordIOTest {
 		assertEquals(0, readfacultyList.size());
 	}
 	
-//	/**
-//	 * Tests writeFacultyRecords()
-//	 */
-//	@Test
-//	public void testWriteFacultyRecordsNoPermissions() {
-//	    LinkedList<Faculty> facultyList = new LinkedList<>();
-//	    facultyList.add(new Faculty("Ashley", "Witt", "awitt", "mollis@Fuscealiquetmagna.net", hashPW, 2));	    
-//	    try {
-//	        FacultyRecordIO.writeFacultyRecords("/home/sesmith5/actual_faculty_records.txt", facultyList);
-//	        fail("Attempted to write to a directory location that doesn't exist or without the appropriate permissions and the write happened.");
-//	    } catch (IOException e) {
-//	        assertEquals("/home/sesmith5/actual_faculty_records.txt (Permission denied)", e.getMessage());
-//	    }
-//	    
-//	}
+	/**
+	 * Tests writeFacultyRecords()
+	 */
+	@Test
+	public void testWriteFacultyRecords2() {
+	    LinkedList<Faculty> facultyList = new LinkedList<>();
+	    facultyList.add(new Faculty("Ashley", "Witt", "awitt", "mollis@Fuscealiquetmagna.net", hashPW, 2));	    
+	    try {
+	        FacultyRecordIO.writeFacultyRecords("/home/sesmith5/actual_faculty_records.txt", facultyList);
+	        fail("Attempted to write to a directory location that doesn't exist.");
+	    } catch (IOException e) {
+	        assertEquals("/home/sesmith5/actual_faculty_records.txt (Permission Denied)", e.getMessage());
+	    }
+	    
+	}
 
 
 	/**
@@ -156,7 +156,7 @@ public class FacultyRecordIOTest {
 	@Test
 	public void testWriteFacultyRecords() {
 		LinkedList<Faculty> facultyList = new LinkedList<>();
-	    facultyList.add(new Faculty("Ashley", "Witt", "awitt", "mollis@Fuscealiquetmagna.net", hashPW, 2));
+	    facultyList.add(new Faculty("Ashely", "Witt", "awitt", "mollis@Fuscealiquetmagna.net", hashPW, 2));
 	    facultyList.add(new Faculty("Fiona", "Meadows", "fmeadow", "pharetra.sed@et.org", hashPW, 3));
 	    facultyList.add(new Faculty("Brent", "Brewer", "bbrewer", "sem.semper@orcisem.co.uk", hashPW, 1));
 
