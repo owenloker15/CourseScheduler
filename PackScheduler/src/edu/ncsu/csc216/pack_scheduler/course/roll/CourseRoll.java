@@ -30,6 +30,8 @@ public class CourseRoll {
 	private int enrollmentCap;
 	/** ArrayStack of Students in the waitlist */
 	private LinkedQueue<Student> waitlist;
+	/** Course associated with the CourseRoll */
+	private Course course;
 
 	/**
 	 * Constructor for CourseRoll Initializes list to an empty list with capacity of
@@ -42,6 +44,7 @@ public class CourseRoll {
 		if (c == null) {
 			throw new IllegalArgumentException();
 		}
+		course = c;
 		roll = new LinkedAbstractList<Student>(enrollmentCap);
 		setEnrollmentCap(enrollmentCap);
 		waitlist = new LinkedQueue<Student>(WAITLIST_SIZE);
@@ -104,6 +107,9 @@ public class CourseRoll {
 			waitlist.enqueue(s);
 		} else {
 			roll.add(s);
+			if (s.canAdd(course)) {
+				s.getSchedule().addCourseToSchedule(course);
+			}
 		}
 	}
 
