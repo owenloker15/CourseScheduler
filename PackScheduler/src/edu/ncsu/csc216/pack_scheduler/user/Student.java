@@ -48,6 +48,7 @@ public class Student extends User implements Comparable<Student> {
 	public Student(String firstName, String lastName, String id, String email, String hashPW) {
 		super(firstName, lastName, id, email, hashPW);
 		setMaxCredits(MAX_CREDITS);
+		schedule = new Schedule();
 	}
 	
 	/**
