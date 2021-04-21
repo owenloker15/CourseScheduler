@@ -164,7 +164,11 @@ public class RegistrationManager {
 		}
 
 		Student s = studentDirectory.getStudentById(id);
-		if (s != null) {
+		Faculty f = facultyDirectory.getFacultyById(id);
+		
+		if (f == null && s == null) {
+			throw new IllegalArgumentException("User doesn't exist.");
+		} else if (f == null) {
 			try {
 				MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
 				digest = MessageDigest.getInstance(HASH_ALGORITHM);
@@ -176,13 +180,7 @@ public class RegistrationManager {
 				}
 			} catch (NoSuchAlgorithmException e) { throw new IllegalArgumentException();
 			} catch (NullPointerException e) { throw new IllegalArgumentException("User doesn't exist."); }
-		}
-
-		Faculty f = facultyDirectory.getFacultyById(id);
-//		if (f == null) {
-//			throw new IllegalArgumentException("User doesn't exist.");
-//		}
-		if (f != null) {
+		} else if (s == null) {
 			try {
 				MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
 				digest = MessageDigest.getInstance(HASH_ALGORITHM);
@@ -195,7 +193,6 @@ public class RegistrationManager {
 			} catch (NoSuchAlgorithmException e) { throw new IllegalArgumentException();
 			} catch (NullPointerException e) { throw new IllegalArgumentException("User doesn't exist."); }
 		}
-
 		return false;
 	}
 

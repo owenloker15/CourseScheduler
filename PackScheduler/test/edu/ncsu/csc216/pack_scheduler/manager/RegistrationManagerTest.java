@@ -139,18 +139,19 @@ public class RegistrationManagerTest {
 		try {
 			assertTrue(manager.login("japples", "password"));
 		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
 			fail();
 		}
 		manager.logout();
 
 				
-//		try {
-//			manager.login("notauser", "password");
-//			fail();
-//		} catch (IllegalArgumentException e) {
-//			assertEquals("User doesn't exist.", e.getMessage());
-//		}
-//		manager.logout();
+		try {
+			manager.login("notauser", "password");
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("User doesn't exist.", e.getMessage());
+		}
+		manager.logout();
 		
 		try {
 			manager.login("efrost", "fakepassword");
