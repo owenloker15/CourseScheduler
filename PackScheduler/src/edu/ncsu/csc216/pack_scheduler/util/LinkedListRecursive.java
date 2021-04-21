@@ -49,8 +49,10 @@ public class LinkedListRecursive<E> {
 		if (idx < 0 || idx > size) {
 			throw new IndexOutOfBoundsException();
 		}
-		
-		front.add(idx, element);
+		else {
+			front.add(idx - 1, element);
+		}
+
 		
 	}
 	
@@ -146,7 +148,7 @@ public class LinkedListRecursive<E> {
 		
 		private boolean add(E element) {
 			if (next == null) {
-				front.next = new ListNode(element, null);
+				next = new ListNode(element, null);
 				size++;
 				return true;
 			} else {
@@ -158,8 +160,6 @@ public class LinkedListRecursive<E> {
 			if (idx == 0) {
 				next = new ListNode(element, next);
 				size++;
-			} else if (next == null) {
-				throw new IndexOutOfBoundsException();
 			} else {
 				next.add(idx - 1, element);
 			}
