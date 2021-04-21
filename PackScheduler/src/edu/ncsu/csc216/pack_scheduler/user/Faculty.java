@@ -3,6 +3,9 @@
  */
 package edu.ncsu.csc216.pack_scheduler.user;
 
+import edu.ncsu.csc216.pack_scheduler.user.schedule.FacultySchedule;
+import edu.ncsu.csc216.pack_scheduler.user.schedule.Schedule;
+
 /**
  * The Faculty class creates new Faculty members for the system, given their
  * firstName, lastName, id, email, password, and maxCourses.
@@ -19,6 +22,8 @@ public class Faculty extends User {
 	public static final int MAX_COURSES = 3;
 	/** Maximum number of courses a given Faculty member has */
 	private int maxCourses;
+	/**Instance of faculty schedule*/
+	private FacultySchedule facultySchedule;
 
 	/**
 	 * Creates new Faculty members for the system, given their firstName, lastName,
@@ -34,6 +39,7 @@ public class Faculty extends User {
 	public Faculty(String firstName, String lastName, String id, String email, String hashPW, int maxCourses) {
 		super(firstName, lastName, id, email, hashPW);
 		setMaxCourses(maxCourses);
+		facultySchedule = new FacultySchedule(id);
 	}
 
 	/**
@@ -103,5 +109,23 @@ public class Faculty extends User {
 				+ getPassword() + "," + maxCourses;
 		return facultyInfo;
 	}
-
+	
+	/** 
+	 * Getter for faculty schedule
+	 * @return the schedule of the faculty
+	 */
+	public FacultySchedule getSchedule() {
+		return facultySchedule;
+	}
+	
+	/**
+	 *  Returns true if the number of schedule courses is greater than the faculty's max courses
+	 *  @return boolean if the schedlue is overloaded
+	 */
+	public boolean isOverloaded() {
+		if (facultySchedule.getNumScheduledCourses() > this.getMaxCourses()) { //may need to be final field of MAX_COURSES
+			return true;
+		}
+		return false;
+	}
 }

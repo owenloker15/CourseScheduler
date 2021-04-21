@@ -173,7 +173,7 @@ public class Course extends Activity implements Comparable<Course> {
 	 * @throws IllegalArgumentException if the instructorId parameter is invalid
 	 */
 	public void setInstructorId(String instructorId) {
-		if(instructorId == null || "".equals(instructorId)) {
+		if("".equals(instructorId)) { //does not need to be null
 			throw new IllegalArgumentException("Invalid instructor id.");
 		}	
 		this.instructorId = instructorId;

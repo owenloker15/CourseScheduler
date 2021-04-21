@@ -15,6 +15,7 @@ import edu.ncsu.csc216.pack_scheduler.directory.StudentDirectory;
 import edu.ncsu.csc216.pack_scheduler.user.Faculty;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 import edu.ncsu.csc216.pack_scheduler.user.User;
+import edu.ncsu.csc216.pack_scheduler.user.schedule.FacultySchedule;
 import edu.ncsu.csc216.pack_scheduler.user.schedule.Schedule;
 
 /**
@@ -302,5 +303,51 @@ public class RegistrationManager {
 		} catch (IllegalArgumentException e) {
 			// do nothing
 		}
+	}
+	
+	/** Adds faculty to the course
+	 * 
+	 * @return true if the faculty can be added to the course
+	 */
+	public boolean addFacultyToCourse(Course course, Faculty faculty) {
+		if (!(currentUser instanceof Faculty)) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+		if (currentUser == null) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+		FacultySchedule schedule = faculty.getSchedule();
+		schedule.addCourseToSchedule(course);
+		return true;
+	}
+	
+	/** Removes faculty to the course
+	 * 
+	 * @return true if the faculty can be removed from the course
+	 */
+	public boolean removeFacultyFromCourse(Course course, Faculty faculty) {
+		if (!(currentUser instanceof Faculty)) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+		if (currentUser == null) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+		FacultySchedule schedule = faculty.getSchedule();
+		schedule.removeCourseFromSchedule(course);
+		return true;
+	}
+	
+	/** Resets the faculty schedule
+	 * 
+	 */
+	public void resetFacultyToCourse(Faculty faculty) {
+		if (!(currentUser instanceof Faculty)) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+		if (currentUser == null) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+		FacultySchedule schedule = faculty.getSchedule();
+		schedule.resetSchedule();
 	}
 }

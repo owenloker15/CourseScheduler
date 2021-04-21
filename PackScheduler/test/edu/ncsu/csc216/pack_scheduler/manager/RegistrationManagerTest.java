@@ -471,5 +471,12 @@ public class RegistrationManagerTest {
 		
 		manager.logout();
 	}
-
+	
+	/** Tests adding, removing, and reseting courses from a facultys schedule
+	 * 
+	 */
+	@Test
+	public void testFacultySchedule() {
+		
+	}
 }
