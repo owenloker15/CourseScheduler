@@ -179,9 +179,9 @@ public class RegistrationManager {
 		}
 
 		Faculty f = facultyDirectory.getFacultyById(id);
-		if (f == null) {
-			throw new IllegalArgumentException("User doesn't exist.");
-		}
+//		if (f == null) {
+//			throw new IllegalArgumentException("User doesn't exist.");
+//		}
 		if (f != null) {
 			try {
 				MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
