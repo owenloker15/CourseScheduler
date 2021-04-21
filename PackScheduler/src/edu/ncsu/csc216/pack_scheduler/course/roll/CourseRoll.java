@@ -117,7 +117,7 @@ public class CourseRoll {
 	 * Removes student from roll
 	 * 
 	 * @param s Student to be dropped from class
-	 * @throws IllegaArgumentException if s is null
+	 * @throws IllegalArgumentException if s is null
 	 */
 	public void drop(Student s) {
 		if (s == null) {

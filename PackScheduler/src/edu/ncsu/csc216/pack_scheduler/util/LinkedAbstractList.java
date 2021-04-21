@@ -37,7 +37,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	
 	/**
 	 * Returns size of list
-	 * @returns size of list
+	 * @return size of list
 	 */
 	@Override
 	public int size() {
@@ -50,8 +50,8 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	 * @param idx index to add element at
 	 * @param element to be added
 	 * @throws IllegalArgumentException if list is at capacity or element is a duplicate of an element already in list
-	 * @throws IndexOutofBounds if idx is less than 0 or greater than size
-	 * @throws NullPointerExcepiton if element is null
+	 * @throws IndexOutOfBounds if idx is less than 0 or greater than size
+	 * @throws NullPointerException if element is null
 	 */
 	@Override
 	public void add(int idx, E element) {
