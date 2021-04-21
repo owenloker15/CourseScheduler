@@ -8,9 +8,9 @@
 
 * **Implement and Test FacultyRecordIO** | **Owner:** Calli, **Due:** 4/12, **Status:** Done
 
-* **Implement and Test FacultyDirectory** | **Owner:** Calli **Due:** 4/19, **Status:** In Progress
+* **Implement and Test FacultyDirectory** | **Owner:** Calli **Due:** 4/19, **Status:** Done
 
-* **Update RegistrationManager** | **Owner:** Daniel **Due:** 4/19, **Status:** In Progress
+* **Update RegistrationManager** | **Owner:** Daniel **Due:** 4/19, **Status:** Done
 
 ## Lab 9
 
