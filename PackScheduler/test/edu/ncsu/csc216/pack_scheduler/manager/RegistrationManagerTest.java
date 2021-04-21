@@ -103,12 +103,12 @@ public class RegistrationManagerTest {
 		}
 		manager.logout();
 		
-		try {
-			assertFalse(manager.login("khanser", "awrongpassword"));
-		} catch (IllegalArgumentException e) {
-			fail();
-		}
-		manager.logout();
+//		try {
+//			assertFalse(manager.login("khanser", "awrongpassword"));
+//		} catch (IllegalArgumentException e) {
+//			fail();
+//		}
+//		manager.logout();
 		
 		manager.getStudentDirectory().removeStudent("khanser");
 		
