@@ -127,13 +127,13 @@ public class CourseRoll {
 					roll.remove(i);
 					if (!waitlist.isEmpty()) {
 						Student w = waitlist.dequeue();
-						roll.add(w);
 						enroll(w);
 					}
 					return;
 				}
 			}
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			throw new IllegalArgumentException();
 		}
 	}
