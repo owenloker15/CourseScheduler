@@ -104,7 +104,7 @@ public class RegistrationManagerTest {
 		manager.logout();
 		
 		try {
-			assertFalse(manager.login("khanser", "nottherightpassword"));
+			assertFalse(manager.login("khanser", "awrongpassword"));
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
