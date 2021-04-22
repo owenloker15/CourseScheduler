@@ -483,8 +483,7 @@ public class CourseTest {
 		assertEquals(MEETING_DAYS, c.getMeetingDays());
 		assertEquals(START_TIME, c.getStartTime());
 		assertEquals(END_TIME, c.getEndTime());
-		
-		
+
 		// Valid set
 		c.setInstructorId("jtking");
 
@@ -504,17 +503,17 @@ public class CourseTest {
 	 */
 	@Test
 	public void testEnrollmentCap() {
+		Course c1 = null;
 		try {
-			new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, 9, MEETING_DAYS, START_TIME, END_TIME);
+			c1 = new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, 9, MEETING_DAYS, START_TIME, END_TIME);
 		} catch (IllegalArgumentException e) {
-			assertNull(new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, 9, MEETING_DAYS, START_TIME, END_TIME));
+			assertNull(c1);
 		}
 		try {
-			new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, 251, MEETING_DAYS, START_TIME, END_TIME);
+			c1 = new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, 251, MEETING_DAYS, START_TIME, END_TIME);
 		} catch (IllegalArgumentException e) {
-			assertNull(new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, 251, MEETING_DAYS, START_TIME, END_TIME));
+			assertNull(c1);
 		}
-
 	}
 
 	/**
