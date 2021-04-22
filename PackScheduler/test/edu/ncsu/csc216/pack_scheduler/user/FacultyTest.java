@@ -15,7 +15,6 @@ import org.junit.Test;
 import edu.ncsu.csc216.pack_scheduler.catalog.CourseCatalog;
 import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.user.schedule.FacultySchedule;
-import edu.ncsu.csc216.pack_scheduler.user.schedule.Schedule;
 
 /**
  * Tests the Faculty class
@@ -361,30 +360,32 @@ public class FacultyTest {
 		assertNotEquals(s5.hashCode(), s2.hashCode());
 
 	}
-	
-	/** Tests get schedule method
+
+	/**
+	 * Tests get schedule method
 	 * 
 	 */
 	@Test
 	public void testGetSchedule() {
 		Faculty f = new Faculty(FIRSTNAME, LASTNAME, ID, EMAIL, PASSWORD, MAXCOURSES);
-		FacultySchedule schedule  = f.getSchedule();
+		FacultySchedule schedule = f.getSchedule();
 		CourseCatalog catalog = new CourseCatalog();
 		catalog.loadCoursesFromFile("test-files/course_records.txt");
 		Course c1 = catalog.getCourseFromCatalog("CSC116", "001");
 //		Course c2 = catalog.getCourseFromCatalog("CSC226", "001");
 //		Course c3 = catalog.getCourseFromCatalog("CSC216", "001");
 		assertTrue(schedule.addCourseToSchedule(c1));
-		assertTrue(1, f.getSchedule().size());
+		schedule.addCourseToSchedule(c1);
+		assertEquals(1, f.getSchedule().getNumScheduledCourses());
 	}
-	
+
 	/**
-	 * 
+	 * Tests isOverloaded method
 	 */
 	@Test
 	public void testIsOverloaded() {
 		Faculty f = new Faculty(FIRSTNAME, LASTNAME, ID, EMAIL, PASSWORD, MAXCOURSES);
-		FacultySchedule schedule  = f.getSchedule();
+		FacultySchedule schedule = f.getSchedule();
 		CourseCatalog catalog = new CourseCatalog();
 		catalog.loadCoursesFromFile("test-files/course_records.txt");
 		Course c1 = catalog.getCourseFromCatalog("CSC116", "001");

@@ -140,9 +140,13 @@ public class RegistrationManager {
 	 */
 	public boolean login(String id, String password) {
 
-		if (id == null || password == null) { throw new IllegalArgumentException("Invalid ID or password."); }
+		if (id == null || password == null) {
+			throw new IllegalArgumentException("Invalid ID or password.");
+		}
 
-		if (currentUser != null) { return false; }
+		if (currentUser != null) {
+			return false;
+		}
 
 		if (registrar.getId().equals(id)) {
 			MessageDigest digest;
@@ -158,15 +162,17 @@ public class RegistrationManager {
 				} else {
 					return false;
 				}
+			} catch (NoSuchAlgorithmException e) {
+				throw new IllegalArgumentException();
+			} catch (NullPointerException e) {
+				throw new IllegalArgumentException("User doesn't exist.");
 			}
-			catch (NoSuchAlgorithmException e) { throw new IllegalArgumentException(); } 
-			catch (NullPointerException e) { throw new IllegalArgumentException("User doesn't exist."); }
 
 		}
 
 		Student s = studentDirectory.getStudentById(id);
 		Faculty f = facultyDirectory.getFacultyById(id);
-		
+
 		if (f == null && s == null) {
 			throw new IllegalArgumentException("User doesn't exist.");
 		} else if (f == null) {
@@ -179,8 +185,11 @@ public class RegistrationManager {
 					currentUser = s;
 					return true;
 				}
-			} catch (NoSuchAlgorithmException e) { throw new IllegalArgumentException();
-			} catch (NullPointerException e) { throw new IllegalArgumentException("User doesn't exist."); }
+			} catch (NoSuchAlgorithmException e) {
+				throw new IllegalArgumentException();
+			} catch (NullPointerException e) {
+				throw new IllegalArgumentException("User doesn't exist.");
+			}
 		} else if (s == null) {
 			try {
 				MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
@@ -191,8 +200,11 @@ public class RegistrationManager {
 					currentUser = f;
 					return true;
 				}
-			} catch (NoSuchAlgorithmException e) { throw new IllegalArgumentException();
-			} catch (NullPointerException e) { throw new IllegalArgumentException("User doesn't exist."); }
+			} catch (NoSuchAlgorithmException e) {
+				throw new IllegalArgumentException();
+			} catch (NullPointerException e) {
+				throw new IllegalArgumentException("User doesn't exist.");
+			}
 		}
 		return false;
 	}
@@ -242,6 +254,7 @@ public class RegistrationManager {
 	 * 
 	 * @param c Course to enroll in
 	 * @return true if enrolled
+	 * @throws IllegalArgumentException if the currentUser is not a student
 	 */
 	public boolean enrollStudentInCourse(Course c) {
 		if (!(currentUser instanceof Student)) {
@@ -269,6 +282,7 @@ public class RegistrationManager {
 	 * 
 	 * @param c Course to drop
 	 * @return true if dropped
+	 * @throws IllegalArgumentException if the currentUser is not a student
 	 */
 	public boolean dropStudentFromCourse(Course c) {
 		if (!(currentUser instanceof Student)) {
@@ -286,6 +300,8 @@ public class RegistrationManager {
 	/**
 	 * Resets the logged in student's schedule by dropping them from every course
 	 * and then resetting the schedule.
+	 * 
+	 * @throws IllegalArgumentException if the currentUser is not a student
 	 */
 	public void resetSchedule() {
 		if (!(currentUser instanceof Student)) {
@@ -304,10 +320,15 @@ public class RegistrationManager {
 			// do nothing
 		}
 	}
-	
-	/** Adds faculty to the course
+
+	/**
+	 * Adds faculty to the course
 	 * 
+	 * @param course  the course the faculty is added to
+	 * @param faculty the faculty to add to the course
 	 * @return true if the faculty can be added to the course
+	 * @throws IllegalArgumentException if the currentUser is not a faculty member
+	 *                                  or is null
 	 */
 	public boolean addFacultyToCourse(Course course, Faculty faculty) {
 		if (!(currentUser instanceof Faculty)) {
@@ -320,10 +341,15 @@ public class RegistrationManager {
 		schedule.addCourseToSchedule(course);
 		return true;
 	}
-	
-	/** Removes faculty to the course
+
+	/**
+	 * Removes faculty to the course
 	 * 
+	 * @param course  the course the faculty is added to
+	 * @param faculty the faculty removed from the course
 	 * @return true if the faculty can be removed from the course
+	 * @throws IllegalArgumentException if the currentUser is not a faculty member
+	 *                                  or is null
 	 */
 	public boolean removeFacultyFromCourse(Course course, Faculty faculty) {
 		if (!(currentUser instanceof Faculty)) {
@@ -336,9 +362,13 @@ public class RegistrationManager {
 		schedule.removeCourseFromSchedule(course);
 		return true;
 	}
-	
-	/** Resets the faculty schedule
+
+	/**
+	 * Resets the faculty schedule
 	 * 
+	 * @param faculty the faculty to be reset
+	 * @throws IllegalArgumentException if the currentUser is not a faculty member
+	 *                                  or is null
 	 */
 	public void resetFacultyToCourse(Faculty faculty) {
 		if (!(currentUser instanceof Faculty)) {

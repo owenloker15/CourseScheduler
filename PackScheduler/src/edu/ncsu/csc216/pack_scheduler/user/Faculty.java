@@ -4,7 +4,6 @@
 package edu.ncsu.csc216.pack_scheduler.user;
 
 import edu.ncsu.csc216.pack_scheduler.user.schedule.FacultySchedule;
-import edu.ncsu.csc216.pack_scheduler.user.schedule.Schedule;
 
 /**
  * The Faculty class creates new Faculty members for the system, given their
