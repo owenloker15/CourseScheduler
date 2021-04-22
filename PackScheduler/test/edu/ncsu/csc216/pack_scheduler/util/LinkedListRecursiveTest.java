@@ -4,6 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * Tests the LinkedListRecursive class
+ * 
+ * @author Daniel Nolting
+ * @author Calli Hooks
+ * @author Owen Loker
+ *
+ */
 public class LinkedListRecursiveTest {
 
 	/**
@@ -15,7 +23,6 @@ public class LinkedListRecursiveTest {
 		assertEquals(0, list.size());
 	}
 
-	
 	/**
 	 * Test add function
 	 */
@@ -80,8 +87,7 @@ public class LinkedListRecursiveTest {
 
 		}
 	}
-	
-	
+
 	/**
 	 * Test add function
 	 */
@@ -179,7 +185,7 @@ public class LinkedListRecursiveTest {
 		list.remove(0);
 		assertEquals(0, list.size());
 	}
-	
+
 	/**
 	 * Tests remove function
 	 */
