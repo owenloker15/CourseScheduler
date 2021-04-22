@@ -2,7 +2,7 @@
 
 ## Lab 11
 
-* **Javadoc LinkedListRecursive** | **Owner:** Daniel,Calli,Owen **Due:** 4/26, **Status:** Pending
+* **Javadoc LinkedListRecursive** | **Owner:** Daniel,Calli,Owen **Due:** 4/26, **Status:** Done
 
 * **Update CourseRecordIO.readCourse()** | **Owner:** Daniel,Calli,Owen **Due:** 4/26, **Status:** Pending
 
