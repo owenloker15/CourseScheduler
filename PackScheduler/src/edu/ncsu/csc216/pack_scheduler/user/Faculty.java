@@ -122,7 +122,7 @@ public class Faculty extends User {
 	 *  @return boolean if the schedlue is overloaded
 	 */
 	public boolean isOverloaded() {
-		if (facultySchedule.getNumScheduledCourses() > this.getMaxCourses()) { //may need to be final field of MAX_COURSES
+		if (facultySchedule.getNumScheduledCourses() > getMaxCourses()) {
 			return true;
 		}
 		return false;

@@ -13,6 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import edu.ncsu.csc216.pack_scheduler.course.Course;
+import edu.ncsu.csc216.pack_scheduler.directory.FacultyDirectory;
 import edu.ncsu.csc217.collections.list.SortedList;
 
 
@@ -76,6 +77,7 @@ public class CourseRecordIO {
 	 */
 	private static Course readCourse(String nextLine) throws IllegalArgumentException{
 		Course course;
+		String instructor = null;
 		
 		Scanner courseReader = new Scanner(nextLine);
 		courseReader.useDelimiter(",");
@@ -85,7 +87,7 @@ public class CourseRecordIO {
 			String title = courseReader.next();
 			String section = courseReader.next();
 			int credits = courseReader.nextInt();
-			String instructor = courseReader.next();
+			instructor = courseReader.next();
 			int enrollmentCap = courseReader.nextInt();
 			String meetingDays = courseReader.next();
 			
@@ -99,6 +101,14 @@ public class CourseRecordIO {
 				courseReader.close();
 				throw new IllegalArgumentException();
 			}
+			
+			FacultyDirectory fd = new FacultyDirectory();
+			for (int i = 0; i < fd.getFacultyDirectory().length; i++) {
+				if (fd.getFacultyDirectory()[i][2].equals(instructor)) {
+					fd.getFacultyById(instructor).getSchedule().addCourseToSchedule(course);
+				}
+			}
+			
 			
 			courseReader.close();
 			return course;
