@@ -96,11 +96,11 @@ public class CourseRecordIO {
 			String meetingDays = courseReader.next();
 
 			if (!courseReader.hasNextInt() && "A".equals(meetingDays)) {
-				course = new Course(name, title, section, credits, instructor, enrollmentCap, meetingDays);
+				course = new Course(name, title, section, credits, null, enrollmentCap, meetingDays);
 			} else if (!"A".equals(meetingDays)) {
 				int startTime = courseReader.nextInt();
 				int endTime = courseReader.nextInt();
-				course = new Course(name, title, section, credits, instructor, enrollmentCap, meetingDays, startTime,
+				course = new Course(name, title, section, credits, null, enrollmentCap, meetingDays, startTime,
 						endTime);
 			} else {
 				courseReader.close();
@@ -109,11 +109,16 @@ public class CourseRecordIO {
 
 			RegistrationManager m = RegistrationManager.getInstance();
 			FacultyDirectory dir = m.getFacultyDirectory();
-			for (int i = 0; i < dir.getFacultyDirectory().length; i++) {
-				if (dir.getFacultyDirectory()[i][2].equals(instructor)) {
-					dir.getFacultyById(instructor).getSchedule().addCourseToSchedule(course);
-				}
-			}
+			if (dir.getFacultyById(instructor) != null) {
+				m.getFacultyDirectory().getFacultyById(instructor).getSchedule().addCourseToSchedule(course);
+			} 
+			
+			
+//			for (int i = 0; i < dir.getFacultyDirectory().length; i++) {
+//				if (dir.getFacultyDirectory()[i][2].equals(instructor)) {
+//					dir.getFacultyById(instructor).getSchedule().addCourseToSchedule(course);
+//				}
+//			}
 
 			courseReader.close();
 			return course;

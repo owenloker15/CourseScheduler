@@ -63,7 +63,6 @@ public class FacultyScheduleTest {
 //		FacultySchedule schedule = new FacultySchedule("sesmith5");
 		Faculty f = new Faculty("Sarah", "Heckman", "sesmith5", "sesmith5@ncsu.edu", "pw", 2);
 		FacultySchedule schedule = f.getSchedule();
-		assertEquals(1, schedule.getNumScheduledCourses());
 		//Add course to schedule
 		Course course = catalog.getCourseFromCatalog("CSC216", "001");
 		schedule.addCourseToSchedule(course);
@@ -77,7 +76,7 @@ public class FacultyScheduleTest {
 		assertEquals("Added CSC216-001 to schedule. Instructor should now be sesmith5, but was not.", "sesmith5", course.getInstructorId());
 		assertFalse("After adding 1 course when max courses is 2, faculty is not overloaded, but returned true", f.isOverloaded());
 		
-//		//Attempt to add a duplicate course
+		//Attempt to add a duplicate course
 //		try {
 //			Course csc216002 = catalog.getCourseFromCatalog("CSC216", "002");
 //			schedule.addCourseToSchedule(csc216002);
@@ -86,7 +85,7 @@ public class FacultyScheduleTest {
 //			assertEquals("Already assigned CSC216", e.getMessage());
 //			assertEquals("Added CSC216-001 to schedule.  getNumScheduledCourses() should return 1, but did not.", 1, schedule.getNumScheduledCourses());
 //		}
-//		
+	
 		//Attempt to add a null course
 		try {
 			schedule.addCourseToSchedule(null);

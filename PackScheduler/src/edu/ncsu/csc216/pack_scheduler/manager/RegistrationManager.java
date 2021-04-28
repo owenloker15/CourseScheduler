@@ -331,12 +331,14 @@ public class RegistrationManager {
 	 *                                  or is null
 	 */
 	public boolean addFacultyToCourse(Course course, Faculty faculty) {
-		if (!(currentUser instanceof Faculty)) {
-			throw new IllegalArgumentException("Illegal Action");
-		}
+		
 		if (currentUser == null) {
 			throw new IllegalArgumentException("Illegal Action");
 		}
+		if (!(currentUser instanceof Faculty)) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+	
 		FacultySchedule schedule = faculty.getSchedule();
 		schedule.addCourseToSchedule(course);
 		return true;
@@ -352,12 +354,15 @@ public class RegistrationManager {
 	 *                                  or is null
 	 */
 	public boolean removeFacultyFromCourse(Course course, Faculty faculty) {
-		if (!(currentUser instanceof Faculty)) {
-			throw new IllegalArgumentException("Illegal Action");
-		}
+		
 		if (currentUser == null) {
 			throw new IllegalArgumentException("Illegal Action");
 		}
+		
+		if (!(currentUser instanceof Faculty)) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+
 		FacultySchedule schedule = faculty.getSchedule();
 		schedule.removeCourseFromSchedule(course);
 		return true;
@@ -371,12 +376,13 @@ public class RegistrationManager {
 	 *                                  or is null
 	 */
 	public void resetFacultySchedule(Faculty faculty) {
-		if (!(currentUser instanceof Faculty)) {
-			throw new IllegalArgumentException("Illegal Action");
-		}
 		if (currentUser == null) {
 			throw new IllegalArgumentException("Illegal Action");
 		}
+		if (!(currentUser instanceof Faculty)) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+	
 		FacultySchedule schedule = faculty.getSchedule();
 		schedule.resetSchedule();
 	}
