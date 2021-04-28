@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.ncsu.csc216.pack_scheduler.catalog.CourseCatalog;
+import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.directory.StudentDirectory;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 import edu.ncsu.csc216.pack_scheduler.user.schedule.Schedule;
@@ -469,7 +470,110 @@ public class RegistrationManagerTest {
 	 * 
 	 */
 	@Test
-	public void testAddFacultyToSchedule() {
+	public void testAddFacultyToCourse() {
+		manager.getStudentDirectory().addStudent("kelsey", "hanser", "khanser", "khanser@ncsu.edu", "password", "password", 15);
+		manager.login("khanser", "password");
+		try {
+			manager.addFacultyToCourse(manager.getCourseCatalog().getCourseFromCatalog("CSC216", "sesmith5"), manager.getFacultyDirectory().getFacultyById("japples"));
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Illegal Action", e.getMessage());
+		}
+		
+		manager.logout();
+		try {
+			manager.addFacultyToCourse(manager.getCourseCatalog().getCourseFromCatalog("CSC216", "sesmith5"), manager.getFacultyDirectory().getFacultyById("japples"));
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Illegal Action", e.getMessage());
+		}
+		
+		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
+		manager.getFacultyDirectory().addFaculty("Barack", "Obama", "bobama", "bobama@ncsu.edu", "password", "password", 3);
+		manager.login("bobama", "password");
+		try {
+			manager.addFacultyToCourse(new Course("CSC420", "Computer Dope Fundamentals", "069", 4, null, 21, "A"), manager.getFacultyDirectory().getFacultyById("japples"));
+			assertEquals(1, manager.getFacultyDirectory().getFacultyById("japples").getSchedule().getNumScheduledCourses());
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+	}
+	
+	/** Tests adding, removing, and reseting courses from a facultys schedule
+	 * 
+	 */
+	@Test
+	public void testRemoveFacultyFromSchedule() {
+		manager.getStudentDirectory().addStudent("kelsey", "hanser", "khanser", "khanser@ncsu.edu", "password", "password", 15);
+		manager.login("khanser", "password");
+		try {
+			manager.removeFacultyFromCourse(manager.getCourseCatalog().getCourseFromCatalog("CSC216", "sesmith5"), manager.getFacultyDirectory().getFacultyById("japples"));
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Illegal Action", e.getMessage());
+		}
+		
+		manager.logout();
+		try {
+			manager.removeFacultyFromCourse(manager.getCourseCatalog().getCourseFromCatalog("CSC216", "sesmith5"), manager.getFacultyDirectory().getFacultyById("japples"));
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Illegal Action", e.getMessage());
+		}
+		
+		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
+		manager.getFacultyDirectory().addFaculty("Barack", "Obama", "bobama", "bobama@ncsu.edu", "password", "password", 3);
+		manager.login("bobama", "password");
+		Course c = new Course("CSC420", "Computer Dope Fundamentals", "069", 4, null, 21, "A");
+		manager.addFacultyToCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
+		assertEquals(1, manager.getFacultyDirectory().getFacultyById("japples").getSchedule().getNumScheduledCourses());
+		
+		try {
+			manager.removeFacultyFromCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
+			assertEquals(0, manager.getFacultyDirectory().getFacultyById("japples").getSchedule().getNumScheduledCourses());
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
 		
 	}
+	
+	/** Tests adding, removing, and reseting courses from a facultys schedule
+	 * 
+	 */
+	@Test
+	public void testResetFacultySchedule() {
+		manager.getStudentDirectory().addStudent("kelsey", "hanser", "khanser", "khanser@ncsu.edu", "password", "password", 15);
+		manager.login("khanser", "password");
+		try {
+			manager.resetFacultySchedule(manager.getFacultyDirectory().getFacultyById("japples"));
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Illegal Action", e.getMessage());
+		}
+		
+		manager.logout();
+		try {
+			manager.resetFacultySchedule(manager.getFacultyDirectory().getFacultyById("japples"));
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Illegal Action", e.getMessage());
+		}
+		
+		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
+		manager.getFacultyDirectory().addFaculty("Barack", "Obama", "bobama", "bobama@ncsu.edu", "password", "password", 3);
+		manager.login("bobama", "password");
+		Course c = new Course("CSC420", "Computer Dope Fundamentals", "069", 4, null, 21, "A");
+		manager.addFacultyToCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
+		assertEquals(1, manager.getFacultyDirectory().getFacultyById("japples").getSchedule().getNumScheduledCourses());
+		
+		try {
+			manager.resetFacultySchedule(manager.getFacultyDirectory().getFacultyById("japples"));
+			assertEquals(0, manager.getFacultyDirectory().getFacultyById("japples").getSchedule().getNumScheduledCourses());
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+	}
+	
+	
 }

@@ -63,7 +63,7 @@ public class FacultyScheduleTest {
 //		FacultySchedule schedule = new FacultySchedule("sesmith5");
 		Faculty f = new Faculty("Sarah", "Heckman", "sesmith5", "sesmith5@ncsu.edu", "pw", 2);
 		FacultySchedule schedule = f.getSchedule();
-		
+		assertEquals(1, schedule.getNumScheduledCourses());
 		//Add course to schedule
 		Course course = catalog.getCourseFromCatalog("CSC216", "001");
 		schedule.addCourseToSchedule(course);
@@ -86,7 +86,7 @@ public class FacultyScheduleTest {
 //			assertEquals("Already assigned CSC216", e.getMessage());
 //			assertEquals("Added CSC216-001 to schedule.  getNumScheduledCourses() should return 1, but did not.", 1, schedule.getNumScheduledCourses());
 //		}
-		
+//		
 		//Attempt to add a null course
 		try {
 			schedule.addCourseToSchedule(null);
