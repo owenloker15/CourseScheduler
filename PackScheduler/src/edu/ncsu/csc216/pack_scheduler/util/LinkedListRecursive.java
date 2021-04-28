@@ -154,9 +154,9 @@ public class LinkedListRecursive<E> {
 	 * @throws IndexOutOfBoundsException if the index is invalid
 	 */
 	public E remove(int idx) {
-		if (isEmpty()) {
-			throw new IllegalArgumentException();
-		}
+//		if (isEmpty()) {
+//			throw new IllegalArgumentException();
+//		}
 		if (idx < 0 || idx >= size) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -182,9 +182,9 @@ public class LinkedListRecursive<E> {
 	 * @throws IndexOutOfBoundsException if the index is invalid
 	 */
 	public E set(int idx, E element) {
-		if (isEmpty()) {
-			throw new IllegalArgumentException();
-		}
+//		if (isEmpty()) {
+//			throw new IllegalArgumentException();
+//		}
 		if (idx < 0 || idx >= size) {
 			throw new IndexOutOfBoundsException();
 		}
