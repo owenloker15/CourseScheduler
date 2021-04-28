@@ -50,7 +50,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	 * @param idx index to add element at
 	 * @param element to be added
 	 * @throws IllegalArgumentException if list is at capacity or element is a duplicate of an element already in list
-	 * @throws IndexOutOfBounds if idx is less than 0 or greater than size
+	 * @throws IndexOutOfBoundsException if idx is less than 0 or greater than size
 	 * @throws NullPointerException if element is null
 	 */
 	@Override

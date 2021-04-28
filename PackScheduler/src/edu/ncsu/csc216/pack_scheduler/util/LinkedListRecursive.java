@@ -175,6 +175,7 @@ public class LinkedListRecursive<E> {
 	 * @return E data previously in the ListNode
 	 * @throws NullPointerException  if the element is null
 	 * @throws IndexOutOfBoundsException if the index is invalid
+	 * @throws IllegalArgumentException if the element is a duplicate
 	 */
 	public E set(int idx, E element) {
 		if (element == null) {
