@@ -124,7 +124,6 @@ public class LinkedListRecursive<E> {
 	 * 
 	 * @param element the element to be removed
 	 * @return boolean representing whether the element was removed
-	 * @throws NullPointerException if the element is null
 	 */
 	public boolean remove(E element) {
 		if (isEmpty()) {
@@ -150,13 +149,9 @@ public class LinkedListRecursive<E> {
 	 * 
 	 * @param idx the index of the element to be removed
 	 * @return E data of the removed ListNode
-	 * @throws IllegalArgumentException  if the list is empty
 	 * @throws IndexOutOfBoundsException if the index is invalid
 	 */
 	public E remove(int idx) {
-//		if (isEmpty()) {
-//			throw new IllegalArgumentException();
-//		}
 		if (idx < 0 || idx >= size) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -182,9 +177,9 @@ public class LinkedListRecursive<E> {
 	 * @throws IndexOutOfBoundsException if the index is invalid
 	 */
 	public E set(int idx, E element) {
-//		if (isEmpty()) {
-//			throw new IllegalArgumentException();
-//		}
+		if (element == null) {
+			throw new NullPointerException();
+		}
 		if (idx < 0 || idx >= size) {
 			throw new IndexOutOfBoundsException();
 		}
