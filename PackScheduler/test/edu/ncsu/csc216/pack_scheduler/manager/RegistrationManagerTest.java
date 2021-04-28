@@ -469,7 +469,7 @@ public class RegistrationManagerTest {
 	 * 
 	 */
 	@Test
-	public void testFacultySchedule() {
+	public void testAddFacultyToSchedule() {
 		
 	}
 }

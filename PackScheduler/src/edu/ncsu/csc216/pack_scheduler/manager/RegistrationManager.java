@@ -370,7 +370,7 @@ public class RegistrationManager {
 	 * @throws IllegalArgumentException if the currentUser is not a faculty member
 	 *                                  or is null
 	 */
-	public void resetFacultyToCourse(Faculty faculty) {
+	public void resetFacultySchedule(Faculty faculty) {
 		if (!(currentUser instanceof Faculty)) {
 			throw new IllegalArgumentException("Illegal Action");
 		}
