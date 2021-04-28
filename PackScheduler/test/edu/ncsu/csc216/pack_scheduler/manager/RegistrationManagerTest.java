@@ -472,9 +472,11 @@ public class RegistrationManagerTest {
 	@Test
 	public void testAddFacultyToCourse() {
 		manager.getStudentDirectory().addStudent("kelsey", "hanser", "khanser", "khanser@ncsu.edu", "password", "password", 15);
+		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
+		Course c = new Course("CSC420", "Computer Dope Fundamentals", "069", 4, null, 21, "A");
 		manager.login("khanser", "password");
 		try {
-			manager.addFacultyToCourse(manager.getCourseCatalog().getCourseFromCatalog("CSC216", "sesmith5"), manager.getFacultyDirectory().getFacultyById("japples"));
+			manager.addFacultyToCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
 			fail();
 		} catch (IllegalArgumentException e) {
 			assertEquals("Illegal Action", e.getMessage());
@@ -482,17 +484,17 @@ public class RegistrationManagerTest {
 		
 		manager.logout();
 		try {
-			manager.addFacultyToCourse(manager.getCourseCatalog().getCourseFromCatalog("CSC216", "sesmith5"), manager.getFacultyDirectory().getFacultyById("japples"));
+			manager.addFacultyToCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
 			fail();
 		} catch (IllegalArgumentException e) {
 			assertEquals("Illegal Action", e.getMessage());
 		}
 		
-		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
+		
 		manager.getFacultyDirectory().addFaculty("Barack", "Obama", "bobama", "bobama@ncsu.edu", "password", "password", 3);
-		manager.login("bobama", "password");
+		manager.login(registrarUsername, registrarPassword);
 		try {
-			manager.addFacultyToCourse(new Course("CSC420", "Computer Dope Fundamentals", "069", 4, null, 21, "A"), manager.getFacultyDirectory().getFacultyById("japples"));
+			manager.addFacultyToCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
 			assertEquals(1, manager.getFacultyDirectory().getFacultyById("japples").getSchedule().getNumScheduledCourses());
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -505,9 +507,11 @@ public class RegistrationManagerTest {
 	@Test
 	public void testRemoveFacultyFromSchedule() {
 		manager.getStudentDirectory().addStudent("kelsey", "hanser", "khanser", "khanser@ncsu.edu", "password", "password", 15);
+		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
+		Course c = new Course("CSC420", "Computer Dope Fundamentals", "069", 4, null, 21, "A");
 		manager.login("khanser", "password");
 		try {
-			manager.removeFacultyFromCourse(manager.getCourseCatalog().getCourseFromCatalog("CSC216", "sesmith5"), manager.getFacultyDirectory().getFacultyById("japples"));
+			manager.removeFacultyFromCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
 			fail();
 		} catch (IllegalArgumentException e) {
 			assertEquals("Illegal Action", e.getMessage());
@@ -515,7 +519,7 @@ public class RegistrationManagerTest {
 		
 		manager.logout();
 		try {
-			manager.removeFacultyFromCourse(manager.getCourseCatalog().getCourseFromCatalog("CSC216", "sesmith5"), manager.getFacultyDirectory().getFacultyById("japples"));
+			manager.removeFacultyFromCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
 			fail();
 		} catch (IllegalArgumentException e) {
 			assertEquals("Illegal Action", e.getMessage());
@@ -523,8 +527,7 @@ public class RegistrationManagerTest {
 		
 		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
 		manager.getFacultyDirectory().addFaculty("Barack", "Obama", "bobama", "bobama@ncsu.edu", "password", "password", 3);
-		manager.login("bobama", "password");
-		Course c = new Course("CSC420", "Computer Dope Fundamentals", "069", 4, null, 21, "A");
+		manager.login(registrarUsername, registrarPassword);
 		manager.addFacultyToCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
 		assertEquals(1, manager.getFacultyDirectory().getFacultyById("japples").getSchedule().getNumScheduledCourses());
 		
@@ -543,6 +546,8 @@ public class RegistrationManagerTest {
 	@Test
 	public void testResetFacultySchedule() {
 		manager.getStudentDirectory().addStudent("kelsey", "hanser", "khanser", "khanser@ncsu.edu", "password", "password", 15);
+		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
+		Course c = new Course("CSC420", "Computer Dope Fundamentals", "069", 4, null, 21, "A");
 		manager.login("khanser", "password");
 		try {
 			manager.resetFacultySchedule(manager.getFacultyDirectory().getFacultyById("japples"));
@@ -561,8 +566,7 @@ public class RegistrationManagerTest {
 		
 		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
 		manager.getFacultyDirectory().addFaculty("Barack", "Obama", "bobama", "bobama@ncsu.edu", "password", "password", 3);
-		manager.login("bobama", "password");
-		Course c = new Course("CSC420", "Computer Dope Fundamentals", "069", 4, null, 21, "A");
+		manager.login(registrarUsername, registrarPassword);
 		manager.addFacultyToCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
 		assertEquals(1, manager.getFacultyDirectory().getFacultyById("japples").getSchedule().getNumScheduledCourses());
 		

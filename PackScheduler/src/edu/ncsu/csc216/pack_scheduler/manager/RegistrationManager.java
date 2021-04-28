@@ -335,7 +335,7 @@ public class RegistrationManager {
 		if (currentUser == null) {
 			throw new IllegalArgumentException("Illegal Action");
 		}
-		if (!(currentUser instanceof Faculty)) {
+		if (!(currentUser instanceof Registrar)) {
 			throw new IllegalArgumentException("Illegal Action");
 		}
 	
@@ -354,12 +354,10 @@ public class RegistrationManager {
 	 *                                  or is null
 	 */
 	public boolean removeFacultyFromCourse(Course course, Faculty faculty) {
-		
 		if (currentUser == null) {
 			throw new IllegalArgumentException("Illegal Action");
 		}
-		
-		if (!(currentUser instanceof Faculty)) {
+		if (!(currentUser instanceof Registrar)) {
 			throw new IllegalArgumentException("Illegal Action");
 		}
 
@@ -379,7 +377,7 @@ public class RegistrationManager {
 		if (currentUser == null) {
 			throw new IllegalArgumentException("Illegal Action");
 		}
-		if (!(currentUser instanceof Faculty)) {
+		if (!(currentUser instanceof Registrar)) {
 			throw new IllegalArgumentException("Illegal Action");
 		}
 	
