@@ -131,7 +131,7 @@ public class LinkedListRecursive<E> {
 			return false;
 		}
 		if (element == null) {
-			throw new NullPointerException();
+			return false;
 		}
 		if (front.data.equals(element)) {
 			front = front.next;
