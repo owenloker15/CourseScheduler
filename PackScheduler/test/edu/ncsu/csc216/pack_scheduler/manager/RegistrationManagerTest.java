@@ -31,7 +31,10 @@ public class RegistrationManagerTest {
 	private String registrarPassword;
 	/** Properties file */
 	private static final String PROP_FILE = "registrar.properties";
-	
+	/** Valid course records */
+	private final String validTestFile = "test-files/student_records.txt";
+	/** StudentDirectory */
+	private StudentDirectory sd;
 	/**
 	 * Sets up the CourseManager and clears the data.
 	 * @throws Exception if error
@@ -52,6 +55,9 @@ public class RegistrationManagerTest {
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Cannot process properties file.");
 		}
+		
+		sd = new StudentDirectory();
+		manager.getStudentDirectory().loadStudentsFromFile(validTestFile);
 	}
 
 	/**
@@ -69,8 +75,6 @@ public class RegistrationManagerTest {
 	 */
 	@Test
 	public void testGetStudentDirectory() {
-		assertEquals(0, manager.getStudentDirectory().getStudentDirectory().length);
-		manager.getStudentDirectory().loadStudentsFromFile("test-files/student_records.txt");
 		assertEquals(10, manager.getStudentDirectory().getStudentDirectory().length);
 	}
 	
@@ -471,10 +475,9 @@ public class RegistrationManagerTest {
 	 */
 	@Test
 	public void testAddFacultyToCourse() {
-		manager.getStudentDirectory().addStudent("kelsey", "hanser", "khanser", "khanser@ncsu.edu", "password", "password", 15);
 		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
 		Course c = new Course("CSC420", "Computer Dope Fundamentals", "069", 4, null, 21, "A");
-		manager.login("khanser", "password");
+		manager.login("zking", "pw");
 		try {
 			manager.addFacultyToCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
 			fail();
@@ -506,10 +509,8 @@ public class RegistrationManagerTest {
 	 */
 	@Test
 	public void testRemoveFacultyFromSchedule() {
-		manager.getStudentDirectory().addStudent("kelsey", "hanser", "khanser", "khanser@ncsu.edu", "password", "password", 15);
-		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
 		Course c = new Course("CSC420", "Computer Dope Fundamentals", "069", 4, null, 21, "A");
-		manager.login("khanser", "password");
+		manager.login("zking", "pw");
 		try {
 			manager.removeFacultyFromCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
 			fail();
@@ -545,10 +546,9 @@ public class RegistrationManagerTest {
 	 */
 	@Test
 	public void testResetFacultySchedule() {
-		manager.getStudentDirectory().addStudent("kelsey", "hanser", "khanser", "khanser@ncsu.edu", "password", "password", 15);
 		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
 		Course c = new Course("CSC420", "Computer Dope Fundamentals", "069", 4, null, 21, "A");
-		manager.login("khanser", "password");
+		manager.login("zking", "pw");
 		try {
 			manager.resetFacultySchedule(manager.getFacultyDirectory().getFacultyById("japples"));
 			fail();
@@ -564,7 +564,6 @@ public class RegistrationManagerTest {
 			assertEquals("Illegal Action", e.getMessage());
 		}
 		
-		manager.getFacultyDirectory().addFaculty("Johnny", "Appleseed", "japples", "japples@ncsu.edu", "password", "password", 3);
 		manager.getFacultyDirectory().addFaculty("Barack", "Obama", "bobama", "bobama@ncsu.edu", "password", "password", 3);
 		manager.login(registrarUsername, registrarPassword);
 		manager.addFacultyToCourse(c, manager.getFacultyDirectory().getFacultyById("japples"));
