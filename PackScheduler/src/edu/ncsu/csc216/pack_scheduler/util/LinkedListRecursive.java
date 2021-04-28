@@ -173,7 +173,7 @@ public class LinkedListRecursive<E> {
 	 * @param idx     the index of the ListNode to change the data of
 	 * @param element the data to set in the ListNode
 	 * @return E data previously in the ListNode
-	 * @throws IllegalArgumentException  if the list is empty
+	 * @throws NullPointerException  if the element is null
 	 * @throws IndexOutOfBoundsException if the index is invalid
 	 */
 	public E set(int idx, E element) {
@@ -182,6 +182,9 @@ public class LinkedListRecursive<E> {
 		}
 		if (idx < 0 || idx >= size) {
 			throw new IndexOutOfBoundsException();
+		}
+		if (contains(element)) {
+			throw new IllegalArgumentException();
 		}
 
 		return front.set(idx, element);
