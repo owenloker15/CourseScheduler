@@ -33,8 +33,7 @@ public class RegistrationManagerTest {
 	private static final String PROP_FILE = "registrar.properties";
 	/** Valid course records */
 	private final String validTestFile = "test-files/student_records.txt";
-	/** StudentDirectory */
-	private StudentDirectory sd;
+	
 	/**
 	 * Sets up the CourseManager and clears the data.
 	 * @throws Exception if error
@@ -55,8 +54,6 @@ public class RegistrationManagerTest {
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Cannot process properties file.");
 		}
-		
-		sd = new StudentDirectory();
 		manager.getStudentDirectory().loadStudentsFromFile(validTestFile);
 	}
 

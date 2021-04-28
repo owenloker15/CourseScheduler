@@ -99,7 +99,7 @@ public class CourseCatalogTest {
 		Course c = catalog.getCourseFromCatalog("NotInCatalog", "000");
 		assertEquals(c, null);
 		c = catalog.getCourseFromCatalog("CSC230", "001");
-		Course expected = new Course("CSC230", "C and Software Tools", "001", 3, "dbsturgi", 10, "MW");
+		Course expected = new Course("CSC230", "C and Software Tools", "001", 3, null, 10, "MW");
 		expected.setMeetingDaysAndTime("MW", 1145, 1300);
 		assertEquals(c, expected);
 	}
